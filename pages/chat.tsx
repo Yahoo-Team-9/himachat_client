@@ -1,8 +1,12 @@
 import { NextPage } from "next";
+import Header from "../components/header";
 
 const Chat: NextPage = () => {
     return(
-        <div>chat page</div>
+        <>
+            <Header />
+            <div>chat page</div>
+        </>
     )
 }
 
