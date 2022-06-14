@@ -13,9 +13,11 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.8.2",
+    "create-next-app": "^12.1.6",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
     "@types/node": "17.0.38",
