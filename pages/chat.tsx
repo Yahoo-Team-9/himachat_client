@@ -4,7 +4,7 @@ import Header from "../components/header";
 const Chat: NextPage = () => {
     return(
         <>
-            <Header />
+            <Header title={'トーク一覧'}/>
             <div>chat page</div>
         </>
     )
