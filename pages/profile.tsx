@@ -75,6 +75,9 @@ const Profile: NextPage = () => {
             })}
 
 
+        各種設定
+
+
 
         </div>
     );
