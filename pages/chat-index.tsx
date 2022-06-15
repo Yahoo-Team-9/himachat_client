@@ -17,7 +17,7 @@ type UserList = {
 	count: number;
 	name: string;
 	preview: string;
-  icon: string;
+	icon: string;
 };
 
 const ChatIndex: NextPage = () => {
@@ -26,7 +26,7 @@ const ChatIndex: NextPage = () => {
 		{ id: 1, count: 4, name: "橋本 環奈", preview: "やっほー、暇してる？", icon: IconImage.src},
 		{ id: 2, count: 10, name: "永野 芽郁", preview: "ねね今暇？", icon: IconImage.src},
 		{ id: 3, count: 1, name: "剛力 彩芽", preview: "暇なら会いたい！", icon: IconImage.src},
-    { id: 4, count: 2, name: "なえなの", preview: "飲み行かない？", icon: IconImage.src},
+		{ id: 4, count: 2, name: "なえなの", preview: "飲み行かない？", icon: IconImage.src},
 		{ id: 5, count: 9, name: "中野 二乃", preview: "会ってあげてもいいけど😠", icon: IconImage.src}
 	]
 
