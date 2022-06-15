@@ -4,8 +4,7 @@ import Header from '../components/header'
 
 import {
     Stack,
-    Button,
-    List
+    Button
 } from "@mui/material";
 import { width } from '@mui/system';
 
@@ -47,7 +46,7 @@ const Profile: NextPage = () => {
                 {users.map((user: MyProfile) => {
 
                     return (
-                        <Button variant="text" style={{color: "black", width: '100%', fontSize: 16}}>{user.user_name}</Button>
+                        <Button variant="text" style={{ color: "black", width: '100%', fontSize: 16 }}>{user.user_name}</Button>
                     )
                 })}
             </Stack>
@@ -56,7 +55,7 @@ const Profile: NextPage = () => {
                 {users.map((user: MyProfile) => {
 
                     return (
-                        <Button variant="text" style={{color: "#C0C0C0", width: '100%', fontSize: 14}}>{user.user_id}  </Button>
+                        <Button variant="text" style={{ color: "#C0C0C0", width: '100%', fontSize: 14 }}>{user.user_id}  </Button>
                     )
                 })}
             </Stack>
@@ -67,15 +66,12 @@ const Profile: NextPage = () => {
 
                 return (
 
-                    <Stack spacing={0} direction="row" style={{alignItems: 'center',  justifyContent: "space-evenly"}} >
-                        <Button variant="text" style={{color: "black", width: '100%', maxWidth: 120, fontSize: 14}}>{user.follers} フォロー </Button>
-                        <Button variant="text" style={{color: "black", width: '100%', maxWidth: 120, fontSize: 14}}>{user.follered}  フォロワー </Button>
+                    <Stack spacing={0} direction="row" style={{ alignItems: 'center', justifyContent: "space-evenly" }} >
+                        <Button variant="text" style={{ color: "black", width: '100%', maxWidth: 120, fontSize: 14 }}>{user.follers} フォロー </Button>
+                        <Button variant="text" style={{ color: "black", width: '100%', maxWidth: 120, fontSize: 14 }}>{user.follered}  フォロワー </Button>
                     </Stack>
                 )
             })}
-
-
-        各種設定
 
 
 
