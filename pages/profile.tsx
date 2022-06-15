@@ -8,9 +8,6 @@ import {
     Stack,
     Button,
     Typography,
-    ImageListItem,
-    ImageList,
-    Avatar
 } from "@mui/material";
 
 // 変数がいる -> 名前が大文字アルファベットになるの相談
