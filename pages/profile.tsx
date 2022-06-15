@@ -1,10 +1,16 @@
 import type { NextPage } from 'next'
 import Header from '../components/header'
 
+import IconImage from "../public/SampleImage.jpg"
+import BackgroundImage from "../public/SampleImage2.jpg"
+
 import {
     Stack,
     Button,
-    Typography
+    Typography,
+    ImageListItem,
+    ImageList,
+    Avatar
 } from "@mui/material";
 
 // 変数がいる -> 名前が大文字アルファベットになるの相談
@@ -14,6 +20,8 @@ type MyProfile = {
     user_id: string;
     followers: number;
     followed: number;
+    icon: string;
+    background: string;
 };
 
 
@@ -21,7 +29,7 @@ const Profile: NextPage = () => {
 
 
     const users: MyProfile[] = [
-        { id: 1, user_name: "User Name", user_id: "@user_id", followers: 999, followed: 999 },
+        { id: 1, user_name: "User Name", user_id: "@user_id", followers: 999, followed: 999, icon: IconImage.src, background: BackgroundImage.src, },
     ]
 
 
@@ -31,20 +39,17 @@ const Profile: NextPage = () => {
             <Header title={'プロフィール'} />
 
 
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
 
             {users.map((user: MyProfile) => {
 
                 return (
+
+
+
                     <Stack style={{ alignItems: 'center', justifyContent: "space-even" }} key={user.id}>
+                        <ImageListItem key={user.background} >
+                            <img src={`${user.background}`} style={{ width: 428, height: 120 }} /></ImageListItem>
+                        <Avatar alt="Icon" src={user.icon} style={{ width: 120, height: 120, borderRadius: 90, top: -65 }} />
                         <Typography style={{ fontSize: 16 }}>{user.user_name}</Typography>
                         <Typography style={{ color: "#808080", fontSize: 14 }}>{user.user_id}  </Typography>
                         <Stack direction="row" >
