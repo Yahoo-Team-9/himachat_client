@@ -46,7 +46,6 @@ const Profile: NextPage = () => {
                     <Stack style={{ alignItems: 'center', justifyContent: "space-even" }} key={user.id}>
                          <img src={`${user.background}`} style={{ width: 428, height: 120 }} />
                          <img alt="Icon" src={user.icon} style={{ width: 120, height: 120, borderRadius: 90,  top: 120, position: 'absolute' }} />
-                        
                         <Typography style={{ fontSize: 16, paddingTop: 70}}>{user.user_name}</Typography>
                         <Typography style={{ color: "#808080", fontSize: 14 }}>{user.user_id}  </Typography>
                         <Stack direction="row" >
