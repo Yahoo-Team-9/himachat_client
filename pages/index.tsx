@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/header'
+import Footer from '../components/footer'
 
 const Home: NextPage = () => {
   return (
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
       </Head>
       <Header title={'フォロー中'}/>
       <span>Home Page</span>
+      <Footer homeiconcolor="#141D26" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#808080"/>
     </div>
   )
 }
