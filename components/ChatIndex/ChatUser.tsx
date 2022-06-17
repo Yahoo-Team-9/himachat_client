@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 
-const ChatUser: NextPage = () => {
+const ChatIndex: NextPage = () => {
     return(
         <div>
             sample component
@@ -8,4 +8,4 @@ const ChatUser: NextPage = () => {
     )
 }
 
-export default ChatUser
+export default ChatIndex
