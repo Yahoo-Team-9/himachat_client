@@ -20,7 +20,6 @@ import {
     Paper
 } from "@mui/material";
 
-// 変数がいる -> 名前が大文字アルファベットになるの相談
 type MyProfile = {
     id: number
     user_name: string;
