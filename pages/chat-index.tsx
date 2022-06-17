@@ -3,6 +3,7 @@ import IconImage from "../public/SampleImage.jpg";
 import backgroundImage from "../public/SampleImage2.jpg";
 import ProfileModal from "../components/ProfileModal";
 import Header from "../components/header";
+import Footer from "../components/footer";
 import {
 	List,
 	ListItem,
@@ -39,7 +40,6 @@ const ChatIndex: NextPage = () => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	const [modalData, setModalData] = useState(null);
 
 	return(
 		<div>
@@ -85,6 +85,7 @@ const ChatIndex: NextPage = () => {
 					follow={123}
 					follower={123}
 				/>
+			<Footer homeiconcolor="#808080" talkiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080"/>
 		</div>
 	)
 }
