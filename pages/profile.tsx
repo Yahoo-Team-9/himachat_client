@@ -1,12 +1,10 @@
 import type { NextPage } from 'next'
 import Header from '../components/header'
-
+import Footer from '../components/footer'
 import IconImage from '../public/SampleImage.jpg'
 import BackgroundImage from '../public/SampleImage2.jpg'
-
 import { Stack, Button, Typography } from '@mui/material'
 
-// 変数がいる -> 名前が大文字アルファベットになるの相談
 type MyProfile = {
   id: number
   user_name: string
@@ -56,6 +54,7 @@ const Profile: NextPage = () => {
           </Stack>
         )
       })}
+      <Footer homeiconcolor="#808080" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#141D26" />
     </div>
   )
 }
