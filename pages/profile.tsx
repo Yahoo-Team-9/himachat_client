@@ -3,7 +3,6 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import IconImage from "../public/SampleImage.jpg"
 import BackgroundImage from "../public/SampleImage2.jpg"
-
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import Router from 'next/router'
 
@@ -20,15 +19,14 @@ import {
 } from "@mui/material";
 
 type MyProfile = {
-    id: number
-    user_name: string;
-    user_id: string;
-    followers: number;
-    followed: number;
-    icon: string;
-    background: string;
-};
-
+  id: number
+  user_name: string
+  user_id: string
+  followers: number
+  followed: number
+  icon: string
+  background: string
+}
 
 const Profile: NextPage = () => {
 
@@ -87,6 +85,5 @@ const Profile: NextPage = () => {
         </div>
     );
 }
-
 
 export default Profile
