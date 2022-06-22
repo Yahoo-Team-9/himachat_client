@@ -3,19 +3,16 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import IconImage from "../public/SampleImage.jpg"
 import BackgroundImage from "../public/SampleImage2.jpg"
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import Router from 'next/router'
 
 import {
     Stack,
     Button,
     Typography,
-    ButtonGroup,
-    Box,
     ListItemButton,
     ListItemText,
-    Divider,
-    Paper
+    Divider
 } from "@mui/material";
 
 type MyProfile = {
@@ -57,25 +54,22 @@ const Profile: NextPage = () => {
                             <Button variant="text" style={{ color: "#141d26", fontSize: 14 }} onClick={()=>handler('/follower')}>{user.followed}  <span> フォロワー</span> </Button>
                         </Stack>
 
-                        <span style={{ fontSize: 14, color: "#808080", paddingTop: 40, paddingRight: 300}}> 各種設定 </span>
+                        <span style={{ fontSize: 14, color: "#808080", paddingTop: 40, paddingRight: 270, paddingBottom:5}}> 各種設定 </span>
 
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', '& > :not(style)': {m: 1, width: 128, height: 128}}} >
-                        <Paper elevation={0}  style={{background: "#ffffff", width: 348, height: 150, borderRadius:10}} /> </Box>
 
-                        <ListItemButton divider style={{ width: 328, height: 50, top: -158}} onClick={()=>handler('/account-setting')}> 
-                        <ListItemText primary="アカウント設定" style={{fontSize: 14, color: "#141d26"}}/>
+                        <ListItemButton style={{background: "#ffffff", width: 348, height: 50, borderTopLeftRadius:10, borderTopRightRadius:10}} onClick={() => handler('/account-setting')}> 
+                        <ListItemText primary="アカウント設定" style={{fontSize: 14, color: "#141d26", paddingLeft: 10}}/>
+                        <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: "#141d26" }} />
+                        </ListItemButton>
+                        <Divider style={{color: "#aaaaaa", width: 328, marginLeft:20}}/>
+                        <ListItemButton style={{background: "#ffffff", width: 348, height: 50}} onClick={()=>handler('/release-member')}> 
+                        <ListItemText primary="公開設定" style={{fontSize: 14, color: "#141d26" , paddingLeft: 10}}/>
                         <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: "#141d26"}}/>
                         </ListItemButton>
-                        <ListItemButton divider style={{background: "#ffffff", width: 328, height: 50, top: -158}} onClick={()=>handler('/release-member')}> 
-                        <ListItemText primary="公開設定" style={{fontSize: 14, color: "#141d26" }}/>
-                        <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: "#141d26"}}/>
+                        <Divider style={{ color: "#aaaaaa", width: 328, marginLeft: 20, float: "right" }} />
+                        <ListItemButton style={{background: "#ffffff", width: 348, height: 50, borderBottomLeftRadius:10, borderBottomRightRadius:10}} onClick={()=>handler('/logout')}> 
+                        <ListItemText primary="ログアウト" style={{fontSize: 14, color: "#dd5144" , paddingLeft: 10}}/>
                         </ListItemButton>
-                        <Divider />
-
-                        <ListItemButton style={{width: 328, height: 50, borderRadius:10, top: -159}} onClick={()=>handler('/logout')}> 
-                        <ListItemText primary="ログアウト" style={{fontSize: 14, color: "#dd5144" }}/>
-                        </ListItemButton>
-
 
                     </Stack>
 
