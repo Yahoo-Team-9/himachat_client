@@ -18,12 +18,12 @@ import {useState} from 'react';
 type UserList = {
 	id: number;
 	name: string;
-	preview: string;
+    preview: string;
 	icon: string;
 	background: string;
 	userid: string;
-	time: string;
-};
+    time: string;
+}; 
 
 const ChatIndex: NextPage = () => {
 
