@@ -56,7 +56,6 @@ const Profile: NextPage = () => {
 
                         <span style={{ fontSize: 14, color: "#808080", paddingTop: 40, paddingRight: 270, paddingBottom:5}}> 各種設定 </span>
 
-
                         <ListItemButton style={{background: "#ffffff", width: 348, height: 50, borderTopLeftRadius:10, borderTopRightRadius:10}} onClick={() => handler('/account-setting')}> 
                         <ListItemText primary="アカウント設定" style={{fontSize: 14, color: "#141d26", paddingLeft: 10}}/>
                         <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: "#141d26" }} />
