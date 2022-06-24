@@ -19,71 +19,71 @@ const Profile: NextPage = () => {
   const users: MyProfile[] = [
     {
       id: 1,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name0',
+      nortification: "30秒前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 2,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name1',
+      nortification: "1分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 3,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name2',
+      nortification: "5分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 4,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name3',
+      nortification: "10分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 5,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name4',
+      nortification: "10分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 6,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'User Name5',
+      nortification: "20分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 7,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'ユーザーネーム',
+      nortification: "29分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 8,
-      user_name: 'User Name',
+      user_name: 'ユーザーネーム1',
       nortification: "30分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 9,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'ユーザーネーム2',
+      nortification: "45分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       },
       {
       id: 10,
-      user_name: 'User Name',
-      nortification: "30分前に暇になった",
+      user_name: 'ユーザーネーム3',
+      nortification: "59分前に暇になった",
       icon: IconImage.src,
       background: BackgroundImage.src,
       }
@@ -91,7 +91,7 @@ const Profile: NextPage = () => {
     
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
-const handleClose = () => setOpen(false)
+  const handleClose = () => setOpen(false)
     
   return (
     <div>
