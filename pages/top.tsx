@@ -98,7 +98,7 @@ const Profile: NextPage = () => {
     <Header title={'フォロー中'} />
     <Stack style={{ alignItems: 'center', justifyContent: 'space-even' }}>
 
-    <ImageList sx={{ width: 348, height: 1230 }} cols={2} rowHeight={164}>
+    <ImageList sx={{  height: 1230 }} cols={2} rowHeight={164}>
       {users.map((user: MyProfile) => (
           <ImageListItem key={user.id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
               <ListItemButton onClick={handleOpen}>
