@@ -6,6 +6,7 @@ import BackgroundImage from '../public/SampleImage2.jpg'
 import ProfileModal from '../components/ProfileModal'
 import { ImageList, Typography, ImageListItem, ListItemButton, Stack } from '@mui/material'
 import { useState } from 'react'
+import { borderRadius } from '@mui/system'
 
 type MyProfile = {
   id: number
@@ -96,13 +97,14 @@ const Profile: NextPage = () => {
   return (
     <div>
     <Header title={'フォロー中'} />
-    <Stack style={{ alignItems: 'center', justifyContent: 'space-even' }}>
+      
+    <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 64}}>
 
     <ImageList sx={{  height: 1230 }} cols={2} rowHeight={164}>
       {users.map((user: MyProfile) => (
           <ImageListItem key={user.id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
               <ListItemButton onClick={handleOpen}>
-                <img src={`${user.icon}`} style={{ width: 150, height: 150 }} />
+                <img src={`${user.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} />
                 </ListItemButton>
               <Typography style={{ fontSize: 16 , color: '#141D26'}}>{user.user_name}</Typography>
               <Typography style={{ color: '#808080', fontSize: 12 }}>{user.nortification} </Typography>
@@ -122,7 +124,9 @@ const Profile: NextPage = () => {
         follow={123}
         follower={123}
       />
-    <Footer homeiconcolor="#141D26" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#808080" />
+
+
+      <Footer homeiconcolor="#141D26" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#808080"/>
     </div>
   )
 }
