@@ -4,11 +4,12 @@ import Footer from '../components/footer'
 import IconImage from '../public/SampleImage.jpg'
 import BackgroundImage from '../public/SampleImage2.jpg'
 import ProfileModal from '../components/ProfileModal'
-import { ImageList, Typography, ImageListItem, ListItemButton, Stack } from '@mui/material'
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ImageList, Typography, ImageListItem, ListItemButton, Stack } from '@mui/material'
 import { useState } from 'react'
 import { borderRadius } from '@mui/system'
+import { VerticalAlignTop } from '@mui/icons-material'
 
-type MyProfile = {
+type OthersNotification = {
   id: number
   user_name: string
   nortification: string
@@ -16,8 +17,8 @@ type MyProfile = {
   background: string
 }
 
-const Profile: NextPage = () => {
-  const users: MyProfile[] = [
+const Nortification: NextPage = () => {
+  const friends: OthersNotification[] = [
     {
       id: 1,
       user_name: 'User Name0',
@@ -89,6 +90,17 @@ const Profile: NextPage = () => {
       background: BackgroundImage.src,
       }
   ]
+
+type MyProfile = {
+  id: number
+  user_name: string
+  nortification: string
+  icon: string
+}
+  
+const users: MyProfile[] = [
+        { id: 0, user_name: "My User Name", nortification: "1分前に暇になりました", icon: IconImage.src },
+]
     
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -96,18 +108,41 @@ const Profile: NextPage = () => {
     
   return (
     <div>
-    <Header title={'フォロー中'} />
+      <Header title={'フォロー中'} />
+
+      {users.map((user: MyProfile) => {
+         return (
+            <List sx={{ width: '100%',bgcolor: '#fff', height: 80}} disablePadding >
+						<ListItem alignItems="flex-start" disablePadding key={user.id}  >
+						<ListItemAvatar style={{paddingLeft: 16, paddingRight: 16, marginTop: 15}}>
+								<Avatar alt='Icon' src={user.icon} style={{ borderRadius: 10, height: 48, width: 48 }} />
+						</ListItemAvatar>
+						<ListItemText style={{marginTop: 20}}
+								primary={user.user_name}
+								primaryTypographyProps={{
+								fontWeight: 'medium',
+								fontSize: "14px"
+								}}                      
+								secondary={user.nortification}
+                secondaryTypographyProps={{
+                fontWeight: 'medium',
+                fontSize: "12px",
+                display: 'inline'
+								}}/> 
+             </ListItem>
+              </List>
+          )})}
       
     <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 80}}>
 
     <ImageList sx={{  height: 1230 }} cols={2} rowHeight={164}>
-      {users.map((user: MyProfile) => (
-          <ImageListItem key={user.id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
+      {friends.map((friend: OthersNotification) => (
+          <ImageListItem key={friend.id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
               <ListItemButton onClick={handleOpen}>
-                <img src={`${user.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} />
+                <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} />
                 </ListItemButton>
-              <Typography style={{ fontSize: 16 , color: '#141D26'}}>{user.user_name}</Typography>
-              <Typography style={{ color: '#808080', fontSize: 12 }}>{user.nortification} </Typography>
+              <Typography style={{ fontSize: 16 , color: '#141D26'}}>{friend.user_name}</Typography>
+              <Typography style={{ color: '#808080', fontSize: 12 }}>{friend.nortification} </Typography>
         </ImageListItem>
       ))}
     </ImageList>
@@ -131,4 +166,4 @@ const Profile: NextPage = () => {
   )
 }
 
-export default Profile
+export default Nortification
