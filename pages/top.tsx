@@ -112,8 +112,8 @@ const users: MyProfile[] = [
 
       {users.map((user: MyProfile) => {
          return (
-            <List sx={{ width: '100%',bgcolor: '#fff', height: 80}} disablePadding >
-						<ListItem alignItems="flex-start" disablePadding key={user.id}  >
+            <List sx={{ width: '100%',bgcolor: '#fff', height: 80}} disablePadding key={user.id} >
+						<ListItem alignItems="flex-start" disablePadding  >
 						<ListItemAvatar style={{paddingLeft: 16, paddingRight: 16, marginTop: 15}}>
 								<Avatar alt='Icon' src={user.icon} style={{ borderRadius: 10, height: 48, width: 48 }} />
 						</ListItemAvatar>
