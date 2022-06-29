@@ -17,125 +17,76 @@ import {
   Stack,
   Button,
 } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession, signIn } from 'next-auth/react'
 
-type OthersNotification = {
-  id: number
-  user_name: string
-  nortification: string
-  icon: string
-  background: string
+type MyProfile = {
+  icon_path: string
+  user_profiles: Array<Array<string>>
+//   nortification: string
+//   icon: string
 }
 
+type OthersNotification = {
+  primary_user_id: number
+  user_id: string
+  login_at: Date
+  // icon: string
+  // background: string
+}
+const AZURE_URL = "https://himathing.azurewebsites.net/"
+const LOCAL_URL = "http://localhost:8080/"
+const SERVER_URL = LOCAL_URL
+
 const Nortification: NextPage = () => {
-  const friends: OthersNotification[] = [
-    {
-      id: 1,
-      user_name: 'User Name0',
-      nortification: '30秒前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 2,
-      user_name: 'User Name1',
-      nortification: '1分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 3,
-      user_name: 'User Name2',
-      nortification: '5分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 4,
-      user_name: 'User Name3',
-      nortification: '10分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 5,
-      user_name: 'User Name4',
-      nortification: '10分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 6,
-      user_name: 'User Name5',
-      nortification: '20分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 7,
-      user_name: 'ユーザーネーム',
-      nortification: '29分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 8,
-      user_name: 'ユーザーネーム1',
-      nortification: '30分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 9,
-      user_name: 'ユーザーネーム2',
-      nortification: '45分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-    {
-      id: 10,
-      user_name: 'ユーザーネーム3',
-      nortification: '59分前に暇になった',
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-  ]
-
-  type MyProfile = {
-    id: number
-    user_name: string
-    nortification: string
-    icon: string
-  }
-
-  const users: MyProfile[] = [{ id: 0, user_name: 'My User Name', nortification: '1分前に暇になりました', icon: IconImage.src }]
-
+  const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
+  const [friends, setFriends] = useState<OthersNotification[]>([]);
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
   const { data: session } = useSession()
+
+  useEffect(() => {
+    fetch(SERVER_URL + "api/user/get_profile", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+        },
+      body: JSON.stringify({"primary_user_id": 1})
+    })
+      .then((res) => res.json()) 
+      .then((data) => setMyProfile(data))
+
+    fetch(SERVER_URL + "api/friend/get_hima_friend_list", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+        },
+      body: JSON.stringify({"primary_user_id": 1})
+    })
+      .then((res) => res.json())
+      .then((data) => setFriends(data) )
+  }, [])
+
   if (session) {
     return (
       <div>
         <Header title={'フォロー中'} />
 
-        {users.map((user: MyProfile) => {
           return (
-            <List sx={{ width: '100%', bgcolor: '#fff', height: 80 }} disablePadding key={user.id}>
+            <List sx={{ width: '100%', bgcolor: '#fff', height: 80 }} disablePadding key={myProfile["user_profiles"][0][0]}>
               <ListItem alignItems="flex-start" disablePadding>
                 <ListItemAvatar style={{ paddingLeft: 16, paddingRight: 16, marginTop: 15 }}>
-                  <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10, height: 48, width: 48 }} />
-                </ListItemAvatar>
+                  <Avatar alt='Icon' src={IconImage.src} style={{ borderRadius: 10, height: 48, width: 48 }} />
+          {/* <Avatar alt='Icon' src={myProfile.icon} style={{ borderRadius: 10, height: 48, width: 48 }} /> */}
                 <ListItemText
                   style={{ marginTop: 20 }}
-                  primary={user.user_name}
+                  primary={myProfile["user_profiles"][0][1]}
                   primaryTypographyProps={{
                     fontWeight: 'medium',
                     fontSize: '14px',
                   }}
-                  secondary={user.nortification}
+                  secondary={"login at " + new Date(myProfile["user_profiles"][0][5]).getHours() + ":" + new Date(myProfile["user_profiles"][0][5]).getMinutes()}
                   secondaryTypographyProps={{
                     fontWeight: 'medium',
                     fontSize: '12px',
@@ -144,22 +95,32 @@ const Nortification: NextPage = () => {
                 />
               </ListItem>
             </List>
-          )
-        })}
 
         <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 80 }}>
           <ImageList sx={{ height: 1230 }} cols={2} rowHeight={164}>
             {friends.map((friend: OthersNotification) => (
-              <ImageListItem key={friend.id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
+              <ImageListItem key={friend.primary_user_id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
                 <ListItemButton onClick={handleOpen}>
-                  <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10 }} />
+                  {/* <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} /> */}
+                <img src={IconImage.src} style={{ width: 150, height: 150, borderRadius: 10}} />
                 </ListItemButton>
-                <Typography style={{ fontSize: 16, color: '#141D26' }}>{friend.user_name}</Typography>
-                <Typography style={{ color: '#808080', fontSize: 12 }}>{friend.nortification} </Typography>
+                <Typography style={{ fontSize: 16, color: '#141D26' }}>{friend.user_id}</Typography>
+                <Typography style={{ color: '#808080', fontSize: 12 }}>{"login at " + new Date(friend.login_at).getHours() + ":" + new Date(friend.login_at).getMinutes()} </Typography>
               </ImageListItem>
             ))}
           </ImageList>
         </Stack>
+          
+        <ProfileModal
+            open={open}
+            handleClose={handleClose}
+            name={'User Name'}
+            icon={IconImage.src}
+            background={BackgroundImage.src}
+            userid={'@user_id'}
+            follow={123}
+            follower={123}
+          />
 
         <ProfileModal
           open={open}
