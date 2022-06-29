@@ -19,6 +19,9 @@ import {
 } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { useSession, signIn } from 'next-auth/react'
+import { borderRadius } from '@mui/system'
+import { VerticalAlignTop } from '@mui/icons-material'
+import { io, Socket } from 'socket.io-client';
 
 type MyProfile = {
   icon_path: string
@@ -28,7 +31,8 @@ type MyProfile = {
 }
 
 type OthersNotification = {
-  primary_user_id: number
+  friend_id: number
+  friend: number //primary_user_id
   user_id: string
   login_at: Date
   // icon: string
@@ -38,13 +42,42 @@ const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
 const SERVER_URL = LOCAL_URL
 
+const PRIMARY_USER_ID = 1
+
+
+
+let socket: Socket;
+
 const Nortification: NextPage = () => {
   const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
+  const [himaFriends, setHimaFriends] = useState<OthersNotification[]>([]);
   const [friends, setFriends] = useState<OthersNotification[]>([]);
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
+
+  const setupSocket = async (
+    user_id: string,
+    friend_ids: number[]
+  ) => {
+      socket = io(SERVER_URL).connect();
+      socket.emit("join", user_id, friend_ids)
+      socket.on("update_hima_status", handle_hima_status) //友達の誰かが、暇状態を更新したため、main画面を更新
+  };
+
+  const handle_hima_status = () => {
+      fetch(SERVER_URL + "api/friend/get_hima_friend_list", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+        },
+      body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
+    })
+      .then((res) => res.json())
+      .then((data) => setHimaFriends(data))
+  }
 
   useEffect(() => {
     fetch(SERVER_URL + "api/user/get_profile", {
@@ -52,7 +85,7 @@ const Nortification: NextPage = () => {
       headers: {
         'Content-Type': "application/json",
         },
-      body: JSON.stringify({"primary_user_id": 1})
+      body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
     })
       .then((res) => res.json()) 
       .then((data) => setMyProfile(data))
@@ -62,11 +95,35 @@ const Nortification: NextPage = () => {
       headers: {
         'Content-Type': "application/json",
         },
-      body: JSON.stringify({"primary_user_id": 1})
+      body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
     })
       .then((res) => res.json())
-      .then((data) => setFriends(data) )
+      .then((data) => setHimaFriends(data))
   }, [])
+      
+  useEffect(() => {
+    fetch(SERVER_URL + "api/friend/get_friend_list", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({ "primary_user_id": PRIMARY_USER_ID})
+    })
+      .then((res) => res.json())
+      .then((data) => setFriends(data))
+
+    const friend_ids: number[] = friends.map((obj) => obj.friend_id)
+    if (friend_ids.length != 0) {
+      setupSocket(myProfile["user_profiles"][0][1], friend_ids)
+      // 友達に自分がログインしたことを通知
+      socket.emit("update_hima_status", friend_ids)
+    }
+  }, [friends])
+  
+    
+  return (
+    <div>
+      <Header title={'フォロー中'} />
 
   if (session) {
     return (
@@ -99,7 +156,7 @@ const Nortification: NextPage = () => {
         <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 80 }}>
           <ImageList sx={{ height: 1230 }} cols={2} rowHeight={164}>
             {friends.map((friend: OthersNotification) => (
-              <ImageListItem key={friend.primary_user_id} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
+              <ImageListItem key={friend.friend} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
                 <ListItemButton onClick={handleOpen}>
                   {/* <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} /> */}
                 <img src={IconImage.src} style={{ width: 150, height: 150, borderRadius: 10}} />
