@@ -91,7 +91,7 @@ const Profile: NextPage = () => {
             </Stack>
           )
         })}
-        <Footer homeiconcolor="#808080" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#141D26" />
+        <Footer homeiconcolor="#808080" belliconcolor="#808080" iconcolor="#141D26" />
       </div>
     )
   }

@@ -172,7 +172,7 @@ const Nortification: NextPage = () => {
           follower={123}
         />
 
-        <Footer homeiconcolor="#141D26" talkiconcolor="#808080" belliconcolor="#808080" iconcolor="#808080" />
+        <Footer homeiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080" />
       </div>
     )
   }

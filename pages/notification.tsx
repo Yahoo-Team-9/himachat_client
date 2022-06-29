@@ -116,7 +116,7 @@ const ChatIndex: NextPage = () => {
           follow={123}
           follower={123}
         />
-        <Footer homeiconcolor="#808080" talkiconcolor="#808080" belliconcolor="#141D26" iconcolor="#808080" />
+        <Footer homeiconcolor="#808080" belliconcolor="#141D26" iconcolor="#808080" />
       </div>
     )
   }

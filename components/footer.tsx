@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { AppBar, Toolbar, Grid, IconButton, Stack, Typography } from '@mui/material'
 import HomeIcon from '@mui/icons-material/HomeRounded'
-import ChatIcon from '@mui/icons-material/ChatRounded'
 import NotificationsIcon from '@mui/icons-material/NotificationsRounded'
 import AccountCircleIcon from '@mui/icons-material/AccountCircleRounded'
 import Router from 'next/router'
@@ -12,12 +11,11 @@ const handler = (path: any) => {
 
 interface Props {
   homeiconcolor: string
-  talkiconcolor: string
   belliconcolor: string
   iconcolor: string
 }
 
-const Footer: NextPage<Props> = ({ homeiconcolor, talkiconcolor, belliconcolor, iconcolor }) => {
+const Footer: NextPage<Props> = ({ homeiconcolor, belliconcolor, iconcolor }) => {
   return (
     <AppBar
       position="fixed"
