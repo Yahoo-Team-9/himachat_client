@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { Modal, Stack, Button, Typography, Box } from "@mui/material";
 
+
 interface Props{
     open: any;
     handleClose: any;
@@ -10,14 +11,13 @@ interface Props{
     userid: string;
     friendNumber: number;
     bio: string;
-    tags: string[];
+    tag_list: string[];
     isFriend: boolean;
     // follower: number;
     // follow: number
 }
 
-const ProfileModal: NextPage<Props> = ({open, handleClose, background, icon, name, userid, friendNumber, bio, tags, isFriend}) => {
-    
+const ProfileModal: NextPage<Props> = ({open, handleClose, background, icon, name, userid, friendNumber, bio, tag_list, isFriend}) => {
     return (
         <>
             <Modal open={open} onClose={handleClose}>
@@ -37,7 +37,11 @@ const ProfileModal: NextPage<Props> = ({open, handleClose, background, icon, nam
                     <Typography style={{ fontSize: 16 , marginTop: 60}}>{name}</Typography>
                     <Typography style={{ color: "#808080", fontSize: 14 }}>{userid}  </Typography>
                     <Typography style={{ color: "#808080", fontSize: 14 }}>{bio}  </Typography>
-                    <Typography style={{ color: "#808080", fontSize: 14 }}>{tags}  </Typography>
+                    <Typography style={{ color: "#808080", fontSize: 14 }}>{tag_list}  </Typography>
+                    {/* {tag_list.map((tag: string) => (
+                        <Typography style={{ color: "#808080", fontSize: 14 }}>{tag}  </Typography>
+                    ))} */}
+                    
                     <Stack direction="row" spacing={1}>
                         <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{friendNumber} <span> 友達</span> </Button>
                         {/* <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{follow}  <span> フォロワー</span> </Button> */}
@@ -48,7 +52,6 @@ const ProfileModal: NextPage<Props> = ({open, handleClose, background, icon, nam
                         ): (
                         <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }}>友達追加 </Button>  
                         )}
-                        {/* <Button variant="contained" style={{ fontWeight:'bold',backgroundColor: "#DD5144", fontSize: 14 }}>トーク</Button> */}
                     </Stack>
                     
 
