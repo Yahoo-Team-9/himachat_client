@@ -78,6 +78,7 @@ const Nortification: NextPage = () => {
   }
 
   useEffect(() => {
+    // 自分のプロフィールを取得
     fetch(SERVER_URL + "api/user/get_profile", {
       method: 'POST',
       headers: {
@@ -88,6 +89,7 @@ const Nortification: NextPage = () => {
       .then((res) => res.json()) 
       .then((data) => setMyProfile(data))
 
+    // 暇な友達を取得
     fetch(SERVER_URL + "api/friend/get_hima_friend_list", {
       method: 'POST',
       headers: {
@@ -98,6 +100,7 @@ const Nortification: NextPage = () => {
       .then((res) => res.json())
       .then((data) => setHimaFriends(data))
     
+    // 自分のログイン時間を更新
     fetch(SERVER_URL + "api/leisure/set_leisure", {
       method: 'POST',
       headers: {
@@ -108,6 +111,8 @@ const Nortification: NextPage = () => {
       .then((data) => console.log(data))
   }, [])
 
+
+  // 友達に対してwebsocketを確立
   useEffect(() => {
     fetch(SERVER_URL + "api/friend/get_friend_list", {
       method: 'POST',
