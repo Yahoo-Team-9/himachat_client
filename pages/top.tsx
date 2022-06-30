@@ -38,7 +38,7 @@ type OthersNotification = {
 }
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
-const SERVER_URL = LOCAL_URL
+const SERVER_URL = AZURE_URL
 
 const PRIMARY_USER_ID = 1
 
@@ -50,9 +50,13 @@ const Nortification: NextPage = () => {
   const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
   const [himaFriends, setHimaFriends] = useState<OthersNotification[]>([]);
   const [friends, setFriends] = useState<OthersNotification[]>([]);
+  const [modalData, setModalData] = useState<OthersNotification>({"friend_id": -1, "friend": -1, user_id: "-1", "login_at": new Date()});
 
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+  const handleOpen = (friend: OthersNotification) => {
+    setOpen(true)
+    setModalData(friend)
+  }
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
 
@@ -92,6 +96,7 @@ const Nortification: NextPage = () => {
     // 暇な友達を取得
     fetch(SERVER_URL + "api/friend/get_hima_friend_list", {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': "application/json",
         },
@@ -160,10 +165,10 @@ const Nortification: NextPage = () => {
         </List>
 
         <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 80 }}>
-          <ImageList sx={{ height: 1230 }} cols={2} rowHeight={164}>
+          <ImageList sx={{ height: 123* (himaFriends.length + 1) }} cols={2} rowHeight={164}>
             {himaFriends.map((friend: OthersNotification) => (
               <ImageListItem key={friend.friend} style={{ alignItems: 'center', justifyContent: 'space-even' }}>
-                <ListItemButton onClick={handleOpen}>
+                <ListItemButton>
                   {/* <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} /> */}
                 <img src={IconImage.src} style={{ width: 150, height: 150, borderRadius: 10}} />
                 </ListItemButton>
@@ -181,8 +186,10 @@ const Nortification: NextPage = () => {
             icon={IconImage.src}
             background={BackgroundImage.src}
             userid={'@user_id'}
-            follow={123}
-            follower={123}
+            friendNumber={10}
+            bio={"ああああ"}
+            tags={["渋谷", "ランチ"]}
+            isFriend={true}
         />
         
         <Footer homeiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080" />
