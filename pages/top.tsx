@@ -99,8 +99,22 @@ const Nortification: NextPage = () => {
     })
       .then((res) => res.json())
       .then((data) => setHimaFriends(data))
+<<<<<<< HEAD
   }, [])
       
+=======
+    
+    fetch(SERVER_URL + "api/leisure/set_leisure", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+        }
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+  }, [])
+
+>>>>>>> fetch set_leisure
   useEffect(() => {
     fetch(SERVER_URL + "api/friend/get_friend_list", {
       method: 'POST',
