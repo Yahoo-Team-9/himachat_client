@@ -126,11 +126,6 @@ const Nortification: NextPage = () => {
       socket.emit("update_hima_status", friend_ids)
     }
   }, [friends])
-  
-    
-  return (
-    <div>
-      <Header title={'フォロー中'} />
 
   if (session) {
     return (
