@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           アプリを開始する
         </Button>
         <br />
-        <Button variant="contained" onClick={() => signOut()} color="warning">
+        <Button variant="contained" onClick={() => signOut({ callbackUrl: `http://localhost:3000` })} color="warning">
           Sign out
         </Button>
       </Stack>
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginTop: '50%' }}>
       <span>Not signed in </span>
       <br />
-      <Button variant="contained" onClick={() => signIn()}>
+      <Button variant="contained" onClick={() => signIn('github', { callbackUrl: `http://localhost:3000` })}>
         Sign in
       </Button>
     </Stack>
