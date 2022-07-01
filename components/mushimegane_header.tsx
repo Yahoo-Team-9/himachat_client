@@ -75,12 +75,10 @@ const Header: NextPage<Props> = ({ title }) => {
       icon={IconImage.src}
       background={BackgroundImage.src}
       userid={modalData.user_id}
-      // friendNumber={modalData.friend_list.length}
-      bio={modalData.bio}
-      tag_list={modalData.tag_list}
-      isFriend={true}
-      primary_user_id={modalData.friend}
-    />
+      follower={123}
+      follow={123}
+      />
+    
     </div>
   )
 }
