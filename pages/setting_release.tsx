@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import IconImage from '../public/SampleImage.jpg'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import { List, ListItem, Avatar, ListItemButton, Stack, Typography } from '@mui/material'
+import { List, ListItem, Avatar, ListItemButton, Stack, Typography, Checkbox } from '@mui/material'
 import { useState } from 'react'
 import SelectFriendsModal from '../components/SelectFriendsModal'
 import BackgroundImage from '../public/SampleImage2.jpg'
@@ -36,6 +36,9 @@ const ChatIndex: NextPage = () => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+      
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
   return (
     <div>
       <Header title={'公開設定'} />
@@ -53,10 +56,11 @@ const ChatIndex: NextPage = () => {
         return (
           <List sx={{ width: '100%', bgcolor: '#fff', height: 60 }} key={user.id} >
             <Stack spacing={2} direction="row">
-                <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10, marginLeft: 15}} />
-                <ListItem style={{ paddingLeft: 0 }}>
+                <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10, marginLeft: 15, marginTop: 5}} />
+                <ListItem style={{ paddingLeft: 0, height: 50}}>
                 <Typography style={{ fontSize: 14, color: '#ffffff', marginLeft: -45 }}>+{user.count}</Typography>
                 <Typography style={{ fontSize: 16, color: '#000000', marginLeft: 30 }}>{user.name}</Typography>
+                <Checkbox {...label} style={{marginLeft: 'auto',  marginRight: 20, color: '#4BB543'}} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} />
               </ListItem>
               </Stack>
             </List>
