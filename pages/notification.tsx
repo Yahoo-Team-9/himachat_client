@@ -106,16 +106,6 @@ const ChatIndex: NextPage = () => {
             </>
           )
         })}
-        <ProfileModal
-          open={open}
-          handleClose={handleClose}
-          name={'User Name'}
-          icon={IconImage.src}
-          background={backgroundImage.src}
-          userid={'@user_id'}
-          follow={123}
-          follower={123}
-        />
         <Footer homeiconcolor="#808080" belliconcolor="#141D26" iconcolor="#808080" />
       </div>
     )
