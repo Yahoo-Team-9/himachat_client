@@ -2,8 +2,10 @@ import { NextPage } from 'next'
 import { Modal, Stack, Paper, InputBase, List, Avatar, Typography, Button, Box } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import IconImage from '../public/SampleImage.jpg'
+import { useEffect, useState } from 'react'
 
 type UserList = {
+  key:number
   id: number
   name: string
   icon: string
@@ -23,92 +25,24 @@ interface Props {
 }
 
 const AddFriendModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, follower, follow }) => {
-  const users: UserList[] = [
+  const _users: UserList[] = [
     {
+      key:-1,
       id: 1,
       name: 'python',
       icon: IconImage.src,
       userid: '@ume',
       select: true,
-    },
-    {
-      id: 2,
-      name: 'java',
-      icon: IconImage.src,
-      userid: '@0kaka',
-      select: true,
-    },
-    {
-      id: 3,
-      name: 'C#',
-      icon: IconImage.src,
-      userid: '@kimuchI',
-      select: false,
-    },
-    {
-      id: 4,
-      name: 'C++',
-      icon: IconImage.src,
-      userid: '@k0nbU',
-      select: false,
-    },
-    {
-      id: 5,
-      name: 'Vue',
-      icon: IconImage.src,
-      userid: '@syake',
-      select: false,
-    },
-    {
-      id: 6,
-      name: 'C',
-      icon: IconImage.src,
-      userid: '@27',
-      select: false,
-    },
-    {
-      id: 7,
-      name: 'pytorch',
-      icon: IconImage.src,
-      userid: '@s0lt',
-      select: false,
-    },
-    {
-      id: 8,
-      name: 'javaScript',
-      icon: IconImage.src,
-      userid: '@noRi',
-      select: false,
-    },
-    {
-      id: 9,
-      name: 'HTML',
-      icon: IconImage.src,
-      userid: '@UmEoKaKa',
-      select: true,
-    },
-    {
-      id: 10,
-      name: 'css',
-      icon: IconImage.src,
-      userid: '@KATSUO',
-      select: false,
-    },
-    {
-      id: 11,
-      name: 'TypeScript',
-      icon: IconImage.src,
-      userid: '@sio',
-      select: false,
-    },
-    {
-      id: 12,
-      name: 'Tensorflow',
-      icon: IconImage.src,
-      userid: '@nAtto',
-      select: false,
-    },
+    }
   ]
+    const [users, setUser] = useState<UserList[]>([
+      
+    ])
+  const [txt, setText] = useState('')
+
+    let oldtext = ''
+  
+
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -130,7 +64,52 @@ const AddFriendModal: NextPage<Props> = ({ open, handleClose, background, icon, 
           <Typography style={{ fontSize: 16, textAlign: 'center', fontWeight: 'bold', paddingTop: 30 }}>友達一覧</Typography>
         </Box>
 
-        <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '90%' }}>
+        <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '90%' }} onChange={async (ev:any) => {
+          if ('value' in ev.target) {
+              if (oldtext != ev.target.value) {
+                oldtext = ev.target.value
+                setText('loading')
+                await fetch("https://himathing.azurewebsites.net/api/user/search_user",
+                  {// 送信先URL
+                    method: 'post', // 通信メソッド
+                    credentials: "include",
+                    headers: {
+                      'Content-Type': 'application/json charset=utf-8'
+                    },
+                    body: JSON.stringify({ 'text': ev.target.value })
+                  }
+                ).then(res => {
+                  if (res.ok) {
+
+                    return res.json()
+                  }
+                }).then(json => {
+                  console.log(json)
+                  let cnt = 0
+                  users = []
+                  setUser(users)
+                  
+                  json.forEach((e: any) => {
+                    const user: UserList = {
+                      key: cnt++,
+                      id: e.primary_user_id,
+                      name: e.user_name,
+                      userid: e.user_id,
+                      icon: IconImage.src,
+                      select: true,
+                    }
+                    users.push(user)
+                    setUser(users)
+                    setText('')
+                  
+                  });
+
+                }).catch((err) => console.error(`取得できませんでした：${err}`));
+              }
+            }
+        }
+          
+        }>
           <SearchIcon />
           <InputBase sx={{ ml: 5, flex: 1 }} inputProps={{ 'aria-label': ' ' }} />
         </Paper>
@@ -141,10 +120,33 @@ const AddFriendModal: NextPage<Props> = ({ open, handleClose, background, icon, 
               <List sx={{ width: '100%', bgcolor: '#FFFFFF', height: 60 }} key={user.id}>
                 <Stack spacing={2} direction="row">
                   <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10, marginLeft: 15 }} />
-                  <Typography style={{ fontSize: 16, color: '#000000', marginLeft: 30, marginTop: 10 }}>{user.name}</Typography>
+                  <Typography style={{ fontSize: 16, color: '#000000', marginLeft: 30, marginTop: 5 }}>{user.name}
+                    <Typography style={{ fontSize:5 ,color:"#888888", marginTop:-2}}>@{user.userid}</Typography>
+                  </Typography>
+                  
                   <Button
                     variant="outlined"
                     style={{ marginLeft: 'auto', marginBottom: 20, fontSize: 12, height: 30, marginRight: 30, marginTop: 10 }}
+                    onClick={async() => {
+                      await fetch("https://himathing.azurewebsites.net/api/friend/send_friend_req",
+                      {// 送信先URL
+                        method: 'post', // 通信メソッド
+                        credentials: "include",
+                        headers: {
+                        'Content-Type': 'application/json charset=utf-8'
+                      },
+                        body: JSON.stringify({ 'friend': user.id })
+                      }
+                     ).then(res => {
+                      if (res.ok) {
+
+                        return res.json()
+                      }
+                     }).then(json => {
+                       console.log(json)
+                       
+                      })
+                    }}
                   >
                     {' '}
                     つながる{' '}
@@ -160,3 +162,7 @@ const AddFriendModal: NextPage<Props> = ({ open, handleClose, background, icon, 
 }
 
 export default AddFriendModal
+function forceUpdate() {
+  throw new Error('Function not implemented.')
+}
+
