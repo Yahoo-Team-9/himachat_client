@@ -42,8 +42,8 @@ type OthersNotification = {
 }
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
-const SERVER_URL = LOCAL_URL
-const PRIMARY_USER_ID = 1
+const SERVER_URL = AZURE_URL
+
 
 let socket: Socket;
 
@@ -59,7 +59,8 @@ const Nortification: NextPage = () => {
   // }
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
-
+  
+  
   const setupSocket = async (
     user_id: string,
     friend_ids: number[]
@@ -76,22 +77,21 @@ const Nortification: NextPage = () => {
       headers: {
         'Content-Type': "application/json",
         },
-      body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
+      body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
     })
       .then((res) => res.json())
       .then((data) => setHimaFriends(data))
     }
   }
-
   useEffect(() => {
     if (session) {
-       // 自分のプロフィールを取得
+      //  自分のプロフィールを取得
       fetch(SERVER_URL + "api/user/get_profile", {
         method: 'POST',
         headers: {
           'Content-Type': "application/json",
           },
-        body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
+        body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
       })
         .then((res) => res.json()) 
         .then((data) => setMyProfile(data))
@@ -102,7 +102,7 @@ const Nortification: NextPage = () => {
         headers: {
           'Content-Type': "application/json",
           },
-        body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
+        body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
       })
         .then((res) => res.json())
         .then((data) => setHimaFriends(data))
@@ -198,7 +198,8 @@ const Nortification: NextPage = () => {
             friendNumber={modalData.friend_list.length}
             bio={modalData.bio}
             tag_list={modalData.tag_list}
-            isFriend={true}
+          isFriend={true}
+          primary_user_id={modalData.friend}
         />
         
         <Footer homeiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080" />

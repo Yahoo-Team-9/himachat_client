@@ -86,9 +86,7 @@ const Profile: NextPage = () => {
   if (session) {
     return (
       <div>
-        <Header title={'プロフィール'} />
-
-          
+        <Header title={'プロフィール'} />          
           <Stack style={{ alignItems: 'center', justifyContent: 'space-even' }} key={myProfile["user_profiles"][0][1]}>
             <img src={`${BackgroundImage.src}`} style={{ width: 428, height: 120 }} />
             <img
