@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Modal, Stack, Paper, IconButton, InputBase, List, Avatar, Badge, Typography, Checkbox, Button, Box } from "@mui/material";
+import { Modal, Stack, Paper, IconButton, InputBase, List, Avatar, Input, Typography, Checkbox, Button, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import Header from '../components/header'
 import IconImage from '../public/SampleImage.jpg'
@@ -126,10 +126,9 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
         </List>
 
         <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '90%'}} >
-        <IconButton aria-label="menu">
         <SearchIcon />
-        </IconButton>
-        <InputBase sx={{ ml: 5, flex: 1  }}  inputProps={{ 'aria-label': ' ' }} />
+        <InputBase sx={{ ml: 5, flex: 1 }} inputProps={{ 'aria-label': ' ' }} id="message" />
+        
         </Paper>
 
          <List sx={{ width: '95%', bgcolor: '#F5F6F6', height: 50, marginTop: 2 ,overflowX: 'scroll'}} >
