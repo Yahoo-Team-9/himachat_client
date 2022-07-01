@@ -66,7 +66,7 @@ const ProfileModal: NextPage<Props> = ({ open, handleClose, background, icon, na
                         {/* <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{follow}  <span> フォロワー</span> </Button> */}
                     </Stack>
                     <Stack direction="row" spacing={5} style={{ margin: 20 }}>
-                        {false ? (
+                        {isFriend ? (
                         <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }}>LINEへ </Button>  
                         ): (
                         <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleFriendRequest}>友達追加 </Button>  
