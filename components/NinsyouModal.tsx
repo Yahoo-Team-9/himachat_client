@@ -19,8 +19,8 @@ const LOCAL_URL = "http://localhost:8080/"
 const SERVER_URL = AZURE_URL
 
 const NinsyouModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, friendNumber, isFriend, primary_user_id }) => {
-    const handleFriendRequest = () => {
-        fetch(SERVER_URL + "api/friend/send_friend_req", {
+    const handleApproveRequest = () => {
+        fetch(SERVER_URL + "api/friend/approve_friend_req", {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -32,6 +32,10 @@ const NinsyouModal: NextPage<Props> = ({ open, handleClose, background, icon, na
       })
         .then((res) => res.json())
         .then((data) => console.log(data))
+    }
+
+    const handleRejectionRequest = () => {
+       
     }
     return (
         <>
@@ -58,11 +62,11 @@ const NinsyouModal: NextPage<Props> = ({ open, handleClose, background, icon, na
                     <Typography style={{ color: "#808080", fontSize: 14 }}>{userid}  </Typography>
                     
                     <Stack direction="row" spacing={1}>
-                        <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{friendNumber} <span>人の友達</span> </Button>
+
                     </Stack>
                     <Stack direction="row" spacing={5} style={{ margin: 20 }}>
-                    <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleFriendRequest}>許可 </Button> 
-                    <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleFriendRequest}>拒否 </Button>  
+                    <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleApproveRequest}>許可 </Button> 
+                    <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleRejectionRequest}>拒否 </Button>  
                     </Stack>
                     
 
