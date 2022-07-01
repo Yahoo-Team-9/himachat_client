@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import IconImage from '../public/SampleImage.jpg'
 import backgroundImage from '../public/SampleImage2.jpg'
-import ProfileModal from '../components/ProfileModal'
+import NinsyouModal from '../components/NinsyouModal'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemButton, Stack, Button } from '@mui/material'
@@ -86,7 +86,7 @@ const ChatIndex: NextPage = () => {
                       <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10 }} />
                     </ListItemButton>
                   </ListItemAvatar>
-                  <ListItemButton style={{ paddingLeft: 0 }}>
+                  <ListItemButton style={{ paddingLeft: 0 }} onClick={() => { setOpen(true) }}>
                     <ListItemText
                       primary={user.name}
                       primaryTypographyProps={{
@@ -106,15 +106,17 @@ const ChatIndex: NextPage = () => {
             </>
           )
         })}
-        <ProfileModal
+        
+        <NinsyouModal
           open={open}
           handleClose={handleClose}
-          name={'User Name'}
-          icon={IconImage.src}
           background={backgroundImage.src}
+          icon={IconImage.src}
+          name={'User Name'}
           userid={'@user_id'}
-          follow={123}
-          follower={123}
+          friendNumber={123}
+          isFriend={false}
+          primary_user_id={ 1 }
         />
         <Footer homeiconcolor="#808080" belliconcolor="#141D26" iconcolor="#808080" />
       </div>
