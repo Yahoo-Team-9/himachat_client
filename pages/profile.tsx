@@ -5,11 +5,12 @@ import IconImage from '../public/SampleImage.jpg'
 import BackgroundImage from '../public/SampleImage2.jpg'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import Router from 'next/router'
+import { useState, useEffect } from 'react'
 import { useSession, signIn } from 'next-auth/react'
 
 import { Stack, Button, Typography, ListItemButton, ListItemText, Divider } from '@mui/material'
 
-type MyProfile = {
+/*type MyProfile = {
   id: number
   user_name: string
   user_id: string
@@ -17,80 +18,125 @@ type MyProfile = {
   followed: number
   icon: string
   background: string
+}*/
+
+type MyProfile = {
+  icon_path: string
+  user_profiles: Array<Array<string>>
+//   nortification: string
+//   icon: string
 }
+type OthersNotification = {
+  friend_id: number
+  friend: number //primary_user_id
+  user_id: string
+  login_at: Date
+  user_name: string
+  bio: string
+  tag_list: string[]
+  friend_list: number[]
+  // icon: string
+  // background: string
+}
+const AZURE_URL = "https://himathing.azurewebsites.net/"
+const LOCAL_URL = "http://localhost:8080/"
+const SERVER_URL = LOCAL_URL
+
+const PRIMARY_USER_ID = 1
+
+
+
 
 const Profile: NextPage = () => {
-  const users: MyProfile[] = [
-    {
-      id: 1,
-      user_name: 'User Name',
-      user_id: '@user_id',
-      followers: 999,
-      followed: 999,
-      icon: IconImage.src,
-      background: BackgroundImage.src,
-    },
-  ]
+  const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
+  const [friends, setFriends] = useState<OthersNotification[]>([]);
+  const { data: session } = useSession()
+
+  /*const users: MyProfile[] = [
+      { id: 1, user_name: "User Name", user_id: "@user_id", followers: 999, followed: 999, icon: IconImage.src, background: BackgroundImage.src },
+  ]*/
+  useEffect(() => {
+      // 自分のプロフィールを取得
+    if (session) {
+      fetch(SERVER_URL + "api/user/get_profile", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({ "primary_user_id": PRIMARY_USER_ID })
+      })
+        .then((res) => res.json())
+        .then((data) => setMyProfile(data))
+      // 友達のリストを取得
+      fetch(SERVER_URL + "api/friend/get_friend_list", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify({ "primary_user_id": PRIMARY_USER_ID })
+      })
+        .then((res) => res.json())
+        .then((data) => setFriends(data))
+    }  
+  }, [])
 
   const handler = (path: any) => {
     Router.push(path)
   }
-  const { data: session } = useSession()
   if (session) {
     return (
       <div>
         <Header title={'プロフィール'} />
 
-        {users.map((user: MyProfile) => {
-          return (
-            <Stack style={{ alignItems: 'center', justifyContent: 'space-even' }} key={user.id}>
-              <img src={`${user.background}`} style={{ width: 428, height: 120 }} />
-              <img
-                alt="Icon"
-                src={user.icon}
-                style={{ width: 120, height: 120, borderRadius: 90, top: 120, position: 'absolute' }}
-              />
-              <Typography style={{ fontSize: 16, paddingTop: 70 }}>{user.user_name}</Typography>
-              <Typography style={{ color: '#808080', fontSize: 14 }}>{user.user_id} </Typography>
-              <Stack direction="row">
-                <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follow')}>
-                  {user.followers} <span> フォロー</span>{' '}
-                </Button>
-                <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follower')}>
-                  {user.followed} <span> フォロワー</span>{' '}
-                </Button>
-              </Stack>
-
-              <span style={{ fontSize: 14, color: '#808080', paddingTop: 40, paddingRight: 270, paddingBottom: 5 }}>
-                {' '}
-                各種設定{' '}
-              </span>
-
-              <ListItemButton
-                style={{ background: '#ffffff', width: 348, height: 50, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
-                onClick={() => handler('/account-setting')}
-              >
-                <ListItemText primary="アカウント設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
-                <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
-              </ListItemButton>
-              <Divider style={{ color: '#aaaaaa', width: 328, marginLeft: 20 }} />
-              <ListItemButton
-                style={{ background: '#ffffff', width: 348, height: 50 }}
-                onClick={() => handler('/release-member')}
-              >
-                <ListItemText primary="公開設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
-                <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
-              </ListItemButton>
-              <Divider style={{ color: '#aaaaaa', width: 328, marginLeft: 20, float: 'right' }} />
-              <ListItemButton
-                style={{ background: '#ffffff', width: 348, height: 50, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}
-                onClick={() => handler('/logout')}
-              >
-                <ListItemText primary="ログアウト" style={{ fontSize: 14, color: '#dd5144', paddingLeft: 10 }} />
-              </ListItemButton>
+          
+          <Stack style={{ alignItems: 'center', justifyContent: 'space-even' }} key={myProfile["user_profiles"][0][1]}>
+            <img src={`${BackgroundImage.src}`} style={{ width: 428, height: 120 }} />
+            <img
+              alt="Icon"
+              src={IconImage.src}
+              style={{ width: 120, height: 120, borderRadius: 90, top: 120, position: 'absolute' }}
+            />
+            <Typography style={{ fontSize: 16, paddingTop: 70 }}>{myProfile["user_profiles"][0][2]}</Typography>
+            <Typography style={{ color: '#808080', fontSize: 14 }}>{myProfile["user_profiles"][0][1]} </Typography>
+            <Stack direction="row">
+              <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follow')}>
+                {friends.length} <span> フォロー</span>{' '}
+              </Button>
+              <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follower')}>
+                {friends.length} <span> フォロワー</span>{' '}
+              </Button>
             </Stack>
-          )
-        })}
+
+            <span style={{ fontSize: 14, color: '#808080', paddingTop: 40, paddingRight: 270, paddingBottom: 5 }}>
+              {' '}
+              各種設定{' '}
+            </span>
+
+            <ListItemButton
+              style={{ background: '#ffffff', width: 348, height: 50, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+              onClick={() => handler('/account-setting')}
+            >
+              <ListItemText primary="アカウント設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
+              <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
+            </ListItemButton>
+            <Divider style={{ color: '#aaaaaa', width: 328, marginLeft: 20 }} />
+            <ListItemButton
+              style={{ background: '#ffffff', width: 348, height: 50 }}
+              onClick={() => handler('/release-member')}
+            >
+              <ListItemText primary="公開設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
+              <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
+            </ListItemButton>
+            <Divider style={{ color: '#aaaaaa', width: 328, marginLeft: 20, float: 'right' }} />
+            <ListItemButton
+              style={{ background: '#ffffff', width: 348, height: 50, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}
+              onClick={() => handler('/logout')}
+            >
+              <ListItemText primary="ログアウト" style={{ fontSize: 14, color: '#dd5144', paddingLeft: 10 }} />
+            </ListItemButton>
+          </Stack>
+          
+        
         <Footer homeiconcolor="#808080" belliconcolor="#808080" iconcolor="#141D26" />
       </div>
     )

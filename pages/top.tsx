@@ -43,7 +43,7 @@ type OthersNotification = {
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
 const SERVER_URL = LOCAL_URL
-
+const PRIMARY_USER_ID = 1
 
 let socket: Socket;
 
@@ -51,7 +51,7 @@ const Nortification: NextPage = () => {
   const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
   const [himaFriends, setHimaFriends] = useState<OthersNotification[]>([]);
   const [friends, setFriends] = useState<OthersNotification[]>([]);
-  const [modalData, setModalData] = useState<OthersNotification>({ "friend_id": -1, "friend": -1, user_id: "-1", "login_at": new Date(), "user_name": "test", "bio": "aaa", "tags": [], "friend_list": [] });
+  const [modalData, setModalData] = useState<OthersNotification>({ "friend_id": -1, "friend": -1, user_id: "-1", "login_at": new Date(), "user_name": "test", "bio": "aaa", "tag_list": [], "friend_list": [] });
   const [open, setOpen] = useState(false)
   // const handleOpen = (friend: OthersNotification) => {
   //   setOpen(true)
@@ -76,7 +76,7 @@ const Nortification: NextPage = () => {
       headers: {
         'Content-Type': "application/json",
         },
-      body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
+      body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
     })
       .then((res) => res.json())
       .then((data) => setHimaFriends(data))
@@ -91,7 +91,7 @@ const Nortification: NextPage = () => {
         headers: {
           'Content-Type': "application/json",
           },
-        body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
+        body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
       })
         .then((res) => res.json()) 
         .then((data) => setMyProfile(data))
@@ -102,7 +102,7 @@ const Nortification: NextPage = () => {
         headers: {
           'Content-Type': "application/json",
           },
-        body: JSON.stringify({"primary_user_id": session["primary_user_id"]})
+        body: JSON.stringify({"primary_user_id": PRIMARY_USER_ID})
       })
         .then((res) => res.json())
         .then((data) => setHimaFriends(data))
