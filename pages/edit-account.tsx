@@ -9,7 +9,7 @@ const handler = (path: any) => {
   Router.push(path)
 }
 
-const CreateAccount: NextPage = () => {
+const EditAccount: NextPage = () => {
   const [username, setName] = useState('')
   const [userid, setID] = useState('')
   const [bio, setBio] = useState('')
@@ -68,7 +68,7 @@ const CreateAccount: NextPage = () => {
   }
   return (
     <div>
-      <Header title={'アカウント登録'} />
+      <Header title={'アカウント編集'} />
       <Stack>
         <Box component={'form'} sx={{ margin: 5 }} onSubmit={handleSubmit}>
           <TextField
@@ -142,4 +142,4 @@ const CreateAccount: NextPage = () => {
   )
 }
 
-export default CreateAccount
+export default EditAccount
