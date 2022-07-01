@@ -4,8 +4,9 @@ import backgroundImage from '../public/SampleImage2.jpg'
 import ProfileModal from '../components/ProfileModal'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemButton, Badge } from '@mui/material'
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemButton, Badge, Button, Stack } from '@mui/material'
 import { useState } from 'react'
+import { useSession, signIn } from 'next-auth/react'
 
 type UserList = {
   id: number
@@ -82,52 +83,64 @@ const ChatIndex: NextPage = () => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  return (
-    <div>
-      <Header title={'トーク一覧'} />
-      {users.map((user: UserList) => {
-        return (
-          <>
-            <List sx={{ width: '100%', bgcolor: '#fff' }} disablePadding>
-              <ListItem alignItems="flex-start" disablePadding key={user.id}>
-                <ListItemAvatar>
-                  <ListItemButton onClick={handleOpen}>
-                    <Badge badgeContent={user.count} color="success">
-                      <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10 }} />
-                    </Badge>
+  const { data: session } = useSession()
+  if (session) {
+    return (
+      <div>
+        <Header title={'トーク一覧'} />
+        {users.map((user: UserList) => {
+          return (
+            <>
+              <List sx={{ width: '100%', bgcolor: '#fff' }} disablePadding>
+                <ListItem alignItems="flex-start" disablePadding key={user.id}>
+                  <ListItemAvatar>
+                    <ListItemButton onClick={handleOpen}>
+                      <Badge badgeContent={user.count} color="success">
+                        <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 10 }} />
+                      </Badge>
+                    </ListItemButton>
+                  </ListItemAvatar>
+                  <ListItemButton style={{ paddingLeft: 0 }}>
+                    <ListItemText
+                      primary={user.name}
+                      primaryTypographyProps={{
+                        fontWeight: 'medium',
+                        fontSize: '14px',
+                      }}
+                      secondary={user.preview}
+                      secondaryTypographyProps={{
+                        fontWeight: 'medium',
+                        fontSize: '12px',
+                      }}
+                    />
                   </ListItemButton>
-                </ListItemAvatar>
-                <ListItemButton style={{ paddingLeft: 0 }}>
-                  <ListItemText
-                    primary={user.name}
-                    primaryTypographyProps={{
-                      fontWeight: 'medium',
-                      fontSize: '14px',
-                    }}
-                    secondary={user.preview}
-                    secondaryTypographyProps={{
-                      fontWeight: 'medium',
-                      fontSize: '12px',
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </>
-        )
-      })}
-      <ProfileModal
-        open={open}
-        handleClose={handleClose}
-        name={'User Name'}
-        icon={IconImage.src}
-        background={backgroundImage.src}
-        userid={'@user_id'}
-        follow={123}
-        follower={123}
-      />
-      <Footer homeiconcolor="#808080" talkiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080" />
-    </div>
+                </ListItem>
+              </List>
+            </>
+          )
+        })}
+        <ProfileModal
+          open={open}
+          handleClose={handleClose}
+          name={'User Name'}
+          icon={IconImage.src}
+          background={backgroundImage.src}
+          userid={'@user_id'}
+          follow={123}
+          follower={123}
+        />
+        <Footer homeiconcolor="#808080" belliconcolor="#808080" iconcolor="#808080" />
+      </div>
+    )
+  }
+  return (
+    <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginTop: '50%' }}>
+      <span>Not signed in </span>
+      <br />
+      <Button variant="contained" onClick={() => signIn()}>
+        Sign in
+      </Button>
+    </Stack>
   )
 }
 
