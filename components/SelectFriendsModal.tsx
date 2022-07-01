@@ -125,7 +125,7 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
         <Typography style={{ fontSize: 16,  textAlign:'center', fontWeight: 'bold', paddingTop:30 }}>グループ</Typography>
         </List>
 
-        <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '9%'}} >
+        <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '90%'}} >
         <IconButton aria-label="menu">
         <SearchIcon />
         </IconButton>
