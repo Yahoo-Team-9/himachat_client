@@ -10,8 +10,6 @@ interface Props{
     name: string;
     userid: string;
     friendNumber: number;
-    bio: string;
-    tag_list: string[];
     isFriend: boolean;
     primary_user_id: number;
 }
@@ -20,7 +18,7 @@ const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
 const SERVER_URL = AZURE_URL
 
-const ProfileModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, friendNumber, bio, tag_list, isFriend, primary_user_id }) => {
+const NinsyouModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, friendNumber, isFriend, primary_user_id }) => {
     const handleFriendRequest = () => {
         fetch(SERVER_URL + "api/friend/send_friend_req", {
         method: 'POST',
@@ -58,10 +56,9 @@ const ProfileModal: NextPage<Props> = ({ open, handleClose, background, icon, na
                     <img alt="Icon" src={icon} style={{ width: 100, height: 100, borderRadius: 90, top: 95, position: 'absolute'}} />
                     <Typography style={{ fontSize: 16 , marginTop: 60}}>{name}</Typography>
                     <Typography style={{ color: "#808080", fontSize: 14 }}>{userid}  </Typography>
-                    <Typography style={{ color: "#808080", fontSize: 14 }}>{bio}  </Typography>
                     
                     <Stack direction="row" spacing={1}>
-                        <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{friendNumber} <span> 友達</span> </Button>
+                        <Button variant="text" style={{ color: "#141D26", fontSize: 14 }}>{friendNumber} <span>人の友達</span> </Button>
                     </Stack>
                     <Stack direction="row" spacing={5} style={{ margin: 20 }}>
                     <Button variant="outlined" style={{ fontWeight:'bold', color:"#DD5144", borderColor: "#DD5144", fontSize: 14 }} onClick={handleFriendRequest}>許可 </Button> 
@@ -75,4 +72,4 @@ const ProfileModal: NextPage<Props> = ({ open, handleClose, background, icon, na
     )
 }
 
-export default ProfileModal
+export default NinsyouModal
