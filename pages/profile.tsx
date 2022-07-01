@@ -42,19 +42,11 @@ const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
 const SERVER_URL = AZURE_URL
 
-const PRIMARY_USER_ID = 1
-
-
-
-
 const Profile: NextPage = () => {
   const [myProfile, setMyProfile] = useState<MyProfile>({"icon_path": "./", "user_profiles": [[]]});
   const [friends, setFriends] = useState<OthersNotification[]>([]);
   const { data: session } = useSession()
 
-  /*const users: MyProfile[] = [
-      { id: 1, user_name: "User Name", user_id: "@user_id", followers: 999, followed: 999, icon: IconImage.src, background: BackgroundImage.src },
-  ]*/
   useEffect(() => {
       // 自分のプロフィールを取得
     if (session) {
@@ -98,12 +90,9 @@ const Profile: NextPage = () => {
             <Typography style={{ color: '#808080', fontSize: 14 }}>{myProfile["user_profiles"][0][1]} </Typography>
             <Stack direction="row">
               <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follow')}>
-                {friends.length} <span> フォロー</span>{' '}
+                {friends.length} <span> 友達</span>{' '}
               </Button>
-              <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follower')}>
-                {friends.length} <span> フォロワー</span>{' '}
-              </Button>
-            </Stack>
+              
 
             <span style={{ fontSize: 14, color: '#808080', paddingTop: 40, paddingRight: 270, paddingBottom: 5 }}>
               {' '}
