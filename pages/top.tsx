@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import Header from '../components/header'
+import Header from '../components/mushimegane_header'
 import Footer from '../components/footer'
 import IconImage from '../public/SampleImage.jpg'
 import BackgroundImage from '../public/SampleImage2.jpg'
