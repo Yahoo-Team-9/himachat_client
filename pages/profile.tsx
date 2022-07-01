@@ -10,16 +10,6 @@ import { useSession, signIn } from 'next-auth/react'
 
 import { Stack, Button, Typography, ListItemButton, ListItemText, Divider } from '@mui/material'
 
-/*type MyProfile = {
-  id: number
-  user_name: string
-  user_id: string
-  followers: number
-  followed: number
-  icon: string
-  background: string
-}*/
-
 type MyProfile = {
   icon_path: string
   user_profiles: Array<Array<string>>
@@ -92,7 +82,7 @@ const Profile: NextPage = () => {
               <Button variant="text" style={{ color: '#141d26', fontSize: 14 }} onClick={() => handler('/follow')}>
                 {friends.length} <span> 友達</span>{' '}
               </Button>
-              
+            </Stack>  
 
             <span style={{ fontSize: 14, color: '#808080', paddingTop: 40, paddingRight: 270, paddingBottom: 5 }}>
               {' '}
@@ -101,7 +91,7 @@ const Profile: NextPage = () => {
 
             <ListItemButton
               style={{ background: '#ffffff', width: 348, height: 50, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
-              onClick={() => handler('/account-setting')}
+              onClick={() => handler('/edit-account')}
             >
               <ListItemText primary="アカウント設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
               <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
@@ -109,8 +99,8 @@ const Profile: NextPage = () => {
             <Divider style={{ color: '#aaaaaa', width: 328, marginLeft: 20 }} />
             <ListItemButton
               style={{ background: '#ffffff', width: 348, height: 50 }}
-              onClick={() => handler('/release-member')}
-            >
+              onClick={() => handler('/setting_release.tsx')}>
+            
               <ListItemText primary="公開設定" style={{ fontSize: 14, color: '#141d26', paddingLeft: 10 }} />
               <ArrowForwardIosRoundedIcon style={{ width: 24, height: 24, color: '#141d26' }} />
             </ListItemButton>
