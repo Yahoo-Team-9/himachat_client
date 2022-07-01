@@ -1,13 +1,25 @@
 import { NextPage } from 'next'
 import Header from '../components/header'
 import { TextField, Box, Button, Stack } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCallback } from 'react'
 import Router from 'next/router'
+import { BiotechTwoTone } from '@mui/icons-material'
+
+type MyProfile = {
+  icon_path: string
+  user_profiles: Array<Array<string>>
+//   nortification: string
+//   icon: string
+}
 
 const handler = (path: any) => {
   Router.push(path)
 }
+
+const AZURE_URL = "https://himathing.azurewebsites.net/"
+const LOCAL_URL = "http://localhost:8080/"
+const SERVER_URL = LOCAL_URL
 
 const EditAccount: NextPage = () => {
   const [username, setName] = useState('')
@@ -62,10 +74,46 @@ const EditAccount: NextPage = () => {
       setHasBioError(true)
     }
 
+    fetch(SERVER_URL + "api/user/edit_profile", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': "application/json charset=utf-8",
+        },
+      body: JSON.stringify({
+        "primary_user_id": 1,
+        "edited_profile": {
+          "user_id": userid,
+          "user_name": username,
+          "bio": bio
+        }
+      })
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+
     console.log(`UserName: ${username}`)
     console.log(`UserID: ${userid}`)
     console.log(`bio: ${bio}`)
   }
+
+  const setProfile = (data: MyProfile) => {
+    setName(data["user_profiles"][0][2])
+    setID(data["user_profiles"][0][1])
+    setBio(data["user_profiles"][0][4])
+  }
+  useEffect(() => {
+    fetch(SERVER_URL + "api/user/get_profile", {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+          },
+        body: JSON.stringify({"primary_user_id": 1})
+      })
+        .then((res) => res.json()) 
+        .then((data) => setProfile(data))
+  }, [])
+
   return (
     <div>
       <Header title={'アカウント編集'} />
