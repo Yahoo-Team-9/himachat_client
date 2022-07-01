@@ -126,26 +126,26 @@ const Nortification: NextPage = () => {
 
 
   // 友達に対してwebsocketを確立
-  // useEffect(() => {
-  //   if (session) {
-  //     fetch(SERVER_URL + "api/friend/get_friend_list", {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': "application/json",
-  //     },
-  //     body: JSON.stringify({ "primary_user_id": session["primary_user_id"]})
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setFriends(data))
+  useEffect(() => {
+    if (session) {
+      fetch(SERVER_URL + "api/friend/get_friend_list", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json",
+      },
+      body: JSON.stringify({ "primary_user_id": session["primary_user_id"]})
+    })
+      .then((res) => res.json())
+      .then((data) => setFriends(data))
 
-  //   const friend_ids: number[] = friends.map((obj) => obj.friend_id)
-  //   if (friend_ids.length != 0) {
-  //     setupSocket(myProfile["user_profiles"][0][1], friend_ids)
-  //     // 友達に自分がログインしたことを通知
-  //     socket.emit("update_hima_status", friend_ids)
-  //   }
-  //   }
-  // }, [friends])
+    const friend_ids: number[] = friends.map((obj) => obj.friend_id)
+    if (friend_ids.length != 0) {
+      setupSocket(myProfile["user_profiles"][0][1], friend_ids)
+      // 友達に自分がログインしたことを通知
+      socket.emit("update_hima_status", friend_ids)
+    }
+    }
+  }, [friends])
 
   if (session) {
     return (
@@ -202,7 +202,8 @@ const Nortification: NextPage = () => {
             friendNumber={modalData.friend_list.length}
             bio={modalData.bio}
             tag_list={modalData.tag_list}
-            isFriend={true}
+          isFriend={true}
+          primary_user_id={modalData.friend}
         />
         
         <Footer homeiconcolor="#141D26" belliconcolor="#808080" iconcolor="#808080" />
