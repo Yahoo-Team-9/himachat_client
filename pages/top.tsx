@@ -20,6 +20,7 @@ import {
 import { useState, useEffect } from 'react'
 import { useSession, signIn } from 'next-auth/react'
 import { io, Socket } from 'socket.io-client'
+import Router from 'next/router'
 
 type MyProfile = {
   icon_path: string
@@ -87,6 +88,9 @@ const Notification: NextPage = () => {
         .then((data) => setHimaFriends(data))
     }
   }
+  const handler = (path: any) => {
+    Router.push(path)
+  }
 
   useEffect(() => {
     if (session) {
@@ -152,7 +156,10 @@ const Notification: NextPage = () => {
       <div>
         <Header title={'フォロー中'} />
         <List sx={{ width: '100%', bgcolor: '#fff', height: 80 }} disablePadding key={myProfile['user_profiles'][0][0]}>
-          <ListItem alignItems="flex-start" disablePadding>
+          <ListItemButton
+                  onClick={() => handler('./setting_tag')}
+          >
+            <ListItem alignItems="flex-start" disablePadding>
             <ListItemAvatar style={{ paddingLeft: 16, paddingRight: 16, marginTop: 15 }}>
               <Avatar alt="Icon" src={IconImage.src} style={{ borderRadius: 10, height: 48, width: 48 }} />
               {/* <Avatar alt='Icon' src={myProfile.icon} style={{ borderRadius: 10, height: 48, width: 48 }} /> */}
@@ -181,6 +188,8 @@ const Notification: NextPage = () => {
               }}
             />
           </ListItem>
+        </ListItemButton>
+          
         </List>
 
         <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginBottom: 80 }}>
