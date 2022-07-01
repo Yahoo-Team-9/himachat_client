@@ -59,9 +59,6 @@ const Nortification: NextPage = () => {
   // }
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
-  if (session) {
-    console.log(session)
-  }
   
 
   const setupSocket = async (
