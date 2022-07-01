@@ -6,6 +6,8 @@ import { useCallback } from 'react'
 import Router from 'next/router'
 import { BiotechTwoTone } from '@mui/icons-material'
 import { useSession, signIn } from 'next-auth/react'
+import BorderColorIcon from '@mui/icons-material/BorderColor'
+import FaceIcon from '@mui/icons-material/Face';
 
 type MyProfile = {
   icon_path: string
@@ -124,11 +126,14 @@ const EditAccount: NextPage = () => {
     <div>
       <Header title={'アカウント編集'} />
       <Stack>
-        <Box component={'form'} sx={{ margin: 5 }} onSubmit={handleSubmit}>
+
+
+        <Box component={'form'} sx={{ marginBottom: 5, marginLeft: 5, marginRight: 5 }} onSubmit={handleSubmit}>
+          <FaceIcon style={{marginTop: 25, marginLeft: -15}}/> ユーザー名
           <TextField
             required
             fullWidth
-            label="ユーザーネーム"
+            label="にっしー"
             value={username}
             error={hasNameError}
             onChange={inputName}
@@ -142,14 +147,16 @@ const EditAccount: NextPage = () => {
                   borderColor: '#141D26',
                 },
               },
-              marginBottom: 5,
+              marginBottom: 3,
             }}
           />
+
+          <BorderColorIcon style={{ marginLeft: -15 }}/> ユーザーID
           <TextField
             required
             fullWidth
             inputProps={{ pattern: '^[a-zA-Z0-9_]+$' }}
-            label="ユーザーID"
+            label="@py_3.10.4"
             value={userid}
             error={hasIDError}
             onChange={inputID}
@@ -163,14 +170,16 @@ const EditAccount: NextPage = () => {
                   borderColor: '#141D26',
                 },
               },
-              marginBottom: 5,
+              marginBottom: 3,
             }}
           />
+
+          <BorderColorIcon style={{ marginLeft: -15 }}/> 自己紹介
           <TextField
             required
             fullWidth
             multiline
-            label="bio"
+            label=" ニシキヘビのにっしーです:) "
             value={bio}
             error={hasBioError}
             onChange={inputBio}
@@ -183,13 +192,17 @@ const EditAccount: NextPage = () => {
                 '&:hover fieldset': {
                   borderColor: '#141D26',
                 },
+                
               },
               marginBottom: 5,
             }}
           />
-          <Button type="submit" style={{ marginLeft: '100px', fontSize: '20px' }} color="success" onClick={() => handler('/top')}>
-            登録
-          </Button>
+
+          <Stack>
+          <Button type="submit" style={{ margin: 'auto', fontSize: '20px' }}  onClick={() => handler('/top')}>
+             Start ひまちゃっと
+            </Button>
+          </Stack>
         </Box>
       </Stack>
     </div>
