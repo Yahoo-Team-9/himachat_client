@@ -42,7 +42,7 @@ const Home: NextPage = () => {
       <Stack style={{ alignItems: 'center', justifyContent: 'space-even', marginTop: '50%' }}>
         <span>Welcome！</span>
         <br />
-        <Button variant="contained" onClick={() => handler('/create-account')}>
+        <Button variant="contained" onClick={() => handler('/top')}>
           アプリを開始する
         </Button>
         <br />
