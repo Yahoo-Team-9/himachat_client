@@ -46,6 +46,7 @@ const SERVER_URL = AZURE_URL
 
 let socket: Socket
 
+
 const Notification: NextPage = () => {
   const [myProfile, setMyProfile] = useState<MyProfile>({ icon_path: './', user_profiles: [[]] })
   const [himaFriends, setHimaFriends] = useState<OthersNotification[]>([])
@@ -68,6 +69,7 @@ const Notification: NextPage = () => {
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
 
+
   const setupSocket = async (user_id: string, friend_ids: number[]) => {
     socket = io(SERVER_URL).connect()
     socket.emit('join', user_id, friend_ids)
@@ -87,7 +89,6 @@ const Notification: NextPage = () => {
         .then((data) => setHimaFriends(data))
     }
   }
-
   useEffect(() => {
     if (session) {
       //  自分のプロフィールを取得
