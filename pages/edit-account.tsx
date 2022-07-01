@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useCallback } from 'react'
 import Router from 'next/router'
 import { BiotechTwoTone } from '@mui/icons-material'
+import { useSession, signIn } from 'next-auth/react'
 
 type MyProfile = {
   icon_path: string
@@ -19,7 +20,7 @@ const handler = (path: any) => {
 
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
-const SERVER_URL = LOCAL_URL
+const SERVER_URL = AZURE_URL
 
 const EditAccount: NextPage = () => {
   const [username, setName] = useState('')
@@ -29,6 +30,8 @@ const EditAccount: NextPage = () => {
   const [hasNameError, setHasNameError] = useState(false)
   const [hasIDError, setHasIDError] = useState(false)
   const [hasBioError, setHasBioError] = useState(false)
+
+  const { data: session } = useSession()
 
   const inputName = useCallback(
     (event: any) => {
@@ -74,14 +77,15 @@ const EditAccount: NextPage = () => {
       setHasBioError(true)
     }
 
-    fetch(SERVER_URL + "api/user/edit_profile", {
+    if (session) {
+      fetch(SERVER_URL + "api/user/edit_profile", {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': "application/json charset=utf-8",
         },
       body: JSON.stringify({
-        "primary_user_id": 1,
+        "primary_user_id": session["primary_user_id"],
         "edited_profile": {
           "user_id": userid,
           "user_name": username,
@@ -91,10 +95,10 @@ const EditAccount: NextPage = () => {
       })
         .then((res) => res.json())
         .then((data) => console.log(data))
-
-    console.log(`UserName: ${username}`)
-    console.log(`UserID: ${userid}`)
-    console.log(`bio: ${bio}`)
+    }
+    // console.log(`UserName: ${username}`)
+    // console.log(`UserID: ${userid}`)
+    // console.log(`bio: ${bio}`)
   }
 
   const setProfile = (data: MyProfile) => {
@@ -103,17 +107,19 @@ const EditAccount: NextPage = () => {
     setBio(data["user_profiles"][0][4])
   }
   useEffect(() => {
-    fetch(SERVER_URL + "api/user/get_profile", {
+    if (session) {
+      fetch(SERVER_URL + "api/user/get_profile", {
         method: 'POST',
         headers: {
           'Content-Type': "application/json",
-          },
-        body: JSON.stringify({"primary_user_id": 1})
+        },
+        body: JSON.stringify({ "primary_user_id": session["primary_user_id"] })
       })
-        .then((res) => res.json()) 
+        .then((res) => res.json())
         .then((data) => setProfile(data))
+    }
   }, [])
-
+    
   return (
     <div>
       <Header title={'アカウント編集'} />
