@@ -40,7 +40,7 @@ type OthersNotification = {
 }
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
-const SERVER_URL = LOCAL_URL
+const SERVER_URL = AZURE_URL
 
 const PRIMARY_USER_ID = 1
 
@@ -63,7 +63,7 @@ const Profile: NextPage = () => {
         headers: {
           'Content-Type': "application/json",
         },
-        body: JSON.stringify({ "primary_user_id": PRIMARY_USER_ID })
+        body: JSON.stringify({ "primary_user_id": session["primary_user_id"] })
       })
         .then((res) => res.json())
         .then((data) => setMyProfile(data))
@@ -73,7 +73,7 @@ const Profile: NextPage = () => {
         headers: {
           'Content-Type': "application/json",
         },
-        body: JSON.stringify({ "primary_user_id": PRIMARY_USER_ID })
+        body: JSON.stringify({ "primary_user_id": session["primary_user_id"] })
       })
         .then((res) => res.json())
         .then((data) => setFriends(data))
