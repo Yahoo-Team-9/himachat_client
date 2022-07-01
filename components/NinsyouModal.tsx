@@ -11,7 +11,6 @@ type UserList = {
   name: string
   icon: string
   userid: string
-  select: boolean
 }
   
     
@@ -26,7 +25,7 @@ interface Props{
     follow: number
 }
 
-const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, follower, follow }) => {
+const NinsyouModal: NextPage<Props> = ({ open, handleClose, background, icon, name, userid, follower, follow }) => {
     
     const users: UserList[] = [
     {
@@ -34,84 +33,72 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
       name: 'python',
       icon: IconImage.src,
       userid: '@ume',
-      select: true
     },
     {
       id: 2,
       name: 'java',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@0kaka',
-      select: true
         },
     {
       id: 3,
       name: 'C#',
         icon: IconImage.src,
       userid: '@kimuchI',
-      select: false
     },
     {
       id: 4,
       name: 'C++',
         icon: IconImage.src,
       userid: '@k0nbU',
-      select: false
         },
     {
       id: 5,
       name: 'Vue',
         icon: IconImage.src,
       userid: '@syake',
-      select: false
     },
     {
       id: 6,
       name: 'C',
         icon: IconImage.src,
       userid: '@27',
-      select: false
         },
     {
       id: 7,
       name: 'pytorch',
-     icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@s0lt',
-      select: false
     },
     {
       id: 8,
       name: 'javaScript',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@noRi',
-      select: false
     },
     {
       id: 9,
       name: 'HTML',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@UmEoKaKa',
-      select: true
     },
     {
       id: 10,
       name: 'css',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@KATSUO',
-      select: false
         },
     {
       id: 11,
       name: 'TypeScript',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@sio',
-      select: false
         },
     {
       id: 12,
       name: 'Tensorflow',
-        icon: IconImage.src,
+      icon: IconImage.src,
       userid: '@nAtto',
-      select: false
     },
     ]
     
@@ -141,9 +128,6 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
         <Paper component="form" sx={{ display: 'flex', alignItems: 'center', height: 20, marginTop: 3, width: '90%'}} >
         <SearchIcon />
          <InputBase sx={{ ml: 5, flex: 1 }} inputProps={{ 'aria-label': ' ' }} id="message" />
-
-                        
-        
         
         </Paper>
 
@@ -153,9 +137,9 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
             return (
             <Stack direction="row" key={user.id} >
             <Avatar alt="Icon" src={user.icon} style={{ borderRadius: 5, marginLeft: 15, height: 24, width: 24, marginTop: 5 }}  />
-             <IconButton aria-label="cancel" >
-           <CancelIcon fontSize="small" style={{ marginTop: -15, marginLeft: -18}} color='warning'/>
-           </IconButton>
+            <IconButton aria-label="cancel" >
+            <CancelIcon fontSize="small" style={{ marginTop: -15, marginLeft: -18}} color='warning'/>
+            </IconButton>
             </Stack> 
         )   
         })}
@@ -186,4 +170,4 @@ const SelectFriendsModal: NextPage<Props> = ({ open, handleClose, background, ic
     )
 }
 
-export default SelectFriendsModal
+export default NinsyouModal

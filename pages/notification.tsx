@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import IconImage from '../public/SampleImage.jpg'
 import backgroundImage from '../public/SampleImage2.jpg'
-import ProfileModal from '../components/ProfileModal'
+import NinsyouModal from '../components/NinsyouModal'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemButton, Stack, Button } from '@mui/material'
@@ -106,6 +106,17 @@ const ChatIndex: NextPage = () => {
             </>
           )
         })}
+        
+        <NinsyouModal
+          open={open}
+          handleClose={handleClose}
+          name={'User Name'}
+          icon={IconImage.src}
+          background={backgroundImage.src}
+          userid={'@user_id'}
+          follow={123}
+          follower={123}
+        />
         <Footer homeiconcolor="#808080" belliconcolor="#141D26" iconcolor="#808080" />
       </div>
     )
