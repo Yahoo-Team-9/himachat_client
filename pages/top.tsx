@@ -42,7 +42,7 @@ type OthersNotification = {
 }
 const AZURE_URL = "https://himathing.azurewebsites.net/"
 const LOCAL_URL = "http://localhost:8080/"
-const SERVER_URL = LOCAL_URL
+const SERVER_URL = AZURE_URL
 
 
 let socket: Socket;
@@ -59,6 +59,10 @@ const Nortification: NextPage = () => {
   // }
   const handleClose = () => setOpen(false)
   const { data: session } = useSession()
+  if (session) {
+    console.log(session)
+  }
+  
 
   const setupSocket = async (
     user_id: string,
@@ -85,7 +89,7 @@ const Nortification: NextPage = () => {
 
   useEffect(() => {
     if (session) {
-       // 自分のプロフィールを取得
+      //  自分のプロフィールを取得
       fetch(SERVER_URL + "api/user/get_profile", {
         method: 'POST',
         headers: {
@@ -122,26 +126,26 @@ const Nortification: NextPage = () => {
 
 
   // 友達に対してwebsocketを確立
-  useEffect(() => {
-    if (session) {
-      fetch(SERVER_URL + "api/friend/get_friend_list", {
-      method: 'POST',
-      headers: {
-        'Content-Type': "application/json",
-      },
-      body: JSON.stringify({ "primary_user_id": session["primary_user_id"]})
-    })
-      .then((res) => res.json())
-      .then((data) => setFriends(data))
+  // useEffect(() => {
+  //   if (session) {
+  //     fetch(SERVER_URL + "api/friend/get_friend_list", {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': "application/json",
+  //     },
+  //     body: JSON.stringify({ "primary_user_id": session["primary_user_id"]})
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setFriends(data))
 
-    const friend_ids: number[] = friends.map((obj) => obj.friend_id)
-    if (friend_ids.length != 0) {
-      setupSocket(myProfile["user_profiles"][0][1], friend_ids)
-      // 友達に自分がログインしたことを通知
-      socket.emit("update_hima_status", friend_ids)
-    }
-    }
-  }, [friends])
+  //   const friend_ids: number[] = friends.map((obj) => obj.friend_id)
+  //   if (friend_ids.length != 0) {
+  //     setupSocket(myProfile["user_profiles"][0][1], friend_ids)
+  //     // 友達に自分がログインしたことを通知
+  //     socket.emit("update_hima_status", friend_ids)
+  //   }
+  //   }
+  // }, [friends])
 
   if (session) {
     return (
