@@ -90,7 +90,7 @@ const ProfileModal: NextPage<Props> = ({
               <Button
                 variant="outlined"
                 style={{ fontWeight: 'bold', color: '#DD5144', borderColor: '#4BB543', fontSize: 14 }}
-                onClick={() => handler('https://line.me/R/share?text=今暇？')}
+                onClick={() => handler('https://line.me/R/share?text=%E4%BB%8A%E6%9A%87%EF%BC%9F')}
               >
                 LINEへ{' '}
               </Button>
