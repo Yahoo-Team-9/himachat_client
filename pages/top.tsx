@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
 import Header from '../components/mushimegane_header'
 import Footer from '../components/footer'
-import IconImage from '../public/SampleImage.jpg'
+
 import BackgroundImage from '../public/SampleImage2.jpg'
 import ProfileModal from '../components/ProfileModal'
+import Icon1 from '../public/abe.png'
+import Icon2 from '../public/suekane.png'
+import Icon3 from '../public/noguchi.png'
+import Icon4 from '../public/walle.png'
+import Icon5 from '../public/SampleImage.jpg'
 import {
   List,
   ListItem,
@@ -38,7 +43,7 @@ type OthersNotification = {
   bio: string
   tag_list: string[]
   friend_list: number[]
-  // icon: string
+  icon: string
   // background: string
 }
 const AZURE_URL = 'https://himathing.azurewebsites.net/'
@@ -61,6 +66,7 @@ const Notification: NextPage = () => {
     bio: 'aaa',
     tag_list: [],
     friend_list: [],
+    icon: ''
   })
   const [open, setOpen] = useState(false)
   // const handleOpen = (friend: OthersNotification) => {
@@ -162,8 +168,8 @@ const Notification: NextPage = () => {
           >
             <ListItem alignItems="flex-start" disablePadding>
             <ListItemAvatar style={{ paddingLeft: 16, paddingRight: 16, marginTop: 15 }}>
-              <Avatar alt="Icon" src={IconImage.src} style={{ borderRadius: 10, height: 48, width: 48 }} />
-              {/* <Avatar alt='Icon' src={myProfile.icon} style={{ borderRadius: 10, height: 48, width: 48 }} /> */}
+                <Avatar alt="Icon" src={Icon5.src} style={{ borderRadius: 10, height: 48, width: 48 }} />
+              {/* <Avatar alt='Icon' src={myProfile["icon_path"]} style={{ borderRadius: 10, height: 48, width: 48 }} /> */}
             </ListItemAvatar>
             <ListItemText
               style={{ marginTop: 20 }}
@@ -203,8 +209,11 @@ const Notification: NextPage = () => {
                     setModalData(friend)
                   }}
                 >
-                  {/* <img src={`${friend.icon}`} style={{ width: 150, height: 150, borderRadius: 10}} /> */}
-                  <img src={IconImage.src} style={{ width: 150, height: 150, borderRadius: 10 }} />
+                  {(friend.user_name.length % 5 == 1) &&<img src={Icon1.src} style={{ width: 150, height: 150, borderRadius: 10 }} />}
+                  {(friend.user_name.length % 5 == 0) &&<img src={Icon2.src} style={{ width: 150, height: 150, borderRadius: 10 }} />}
+                  {(friend.user_name.length % 5 == 2) && <img src={Icon3.src} style={{ width: 150, height: 150, borderRadius: 10 }} />}
+                  {(friend.user_name.length % 5 == 3) && <img src={Icon4.src} style={{ width: 150, height: 150, borderRadius: 10 }} />}
+                  {/* <img src={IconImage.src} style={{ width: 150, height: 150, borderRadius: 10 }} /> */}
                 </ListItemButton>
                 <Typography style={{ fontSize: 16, color: '#141D26' }}>{friend.user_name}</Typography>
                 <Typography style={{ color: '#808080', fontSize: 12 }}>
@@ -222,7 +231,7 @@ const Notification: NextPage = () => {
           open={open}
           handleClose={handleClose}
           name={modalData.user_name}
-          icon={IconImage.src}
+          icon={modalData.icon}
           background={BackgroundImage.src}
           userid={modalData.user_id}
           friendNumber={modalData.friend_list.length}
