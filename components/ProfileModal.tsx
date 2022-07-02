@@ -88,8 +88,9 @@ const ProfileModal: NextPage<Props> = ({
           <Stack direction="row" spacing={5} style={{ margin: 20 }}>
             {isFriend ? (
               <Button
-                variant="outlined"
-                style={{ fontWeight: 'bold', color: '#DD5144', borderColor: '#4BB543', fontSize: 14 }}
+                variant="contained"
+                color="success"
+                style={{ fontWeight: 'bold', fontSize: 14 }}
                 onClick={() => handler('https://line.me/R/share?text=%E4%BB%8A%E6%9A%87%EF%BC%9F')}
               >
                 LINEへ{' '}
