@@ -7,7 +7,9 @@ import Router from 'next/router'
 import { BiotechTwoTone } from '@mui/icons-material'
 import { useSession, signIn } from 'next-auth/react'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import FaceIcon from '@mui/icons-material/Face';
+import FaceIcon from '@mui/icons-material/Face'
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 type MyProfile = {
   icon_path: string
@@ -129,11 +131,11 @@ const EditAccount: NextPage = () => {
 
 
         <Box component={'form'} sx={{ marginBottom: 5, marginLeft: 5, marginRight: 5 }} onSubmit={handleSubmit}>
-          <FaceIcon style={{marginTop: 25, marginLeft: -15}}/> ユーザー名
+          <FaceIcon style={{marginTop: 25, marginLeft: -15}}/> 
           <TextField
             required
             fullWidth
-            label="にっしー"
+            label="ユーザー名"
             value={username}
             error={hasNameError}
             onChange={inputName}
@@ -151,12 +153,12 @@ const EditAccount: NextPage = () => {
             }}
           />
 
-          <BorderColorIcon style={{ marginLeft: -15 }}/> ユーザーID
+          <ConfirmationNumberIcon style={{ marginLeft: -15 }}/> 
           <TextField
             required
             fullWidth
             inputProps={{ pattern: '^[a-zA-Z0-9_]+$' }}
-            label="@py_3.10.4"
+            label="@ユーザーID"
             value={userid}
             error={hasIDError}
             onChange={inputID}
@@ -174,12 +176,12 @@ const EditAccount: NextPage = () => {
             }}
           />
 
-          <BorderColorIcon style={{ marginLeft: -15 }}/> 自己紹介
+          <BorderColorIcon style={{ marginLeft: -15 }}/> 
           <TextField
             required
             fullWidth
             multiline
-            label=" ニシキヘビのにっしーです:) "
+            label="自己紹介 "
             value={bio}
             error={hasBioError}
             onChange={inputBio}
@@ -197,13 +199,11 @@ const EditAccount: NextPage = () => {
               marginBottom: 5,
             }}
           />
-
-          <Stack>
-          <Button type="submit" style={{ margin: 'auto', fontSize: '20px' }}  onClick={() => handler('/top')}>
-             Start ひまちゃっと
-            </Button>
-          </Stack>
         </Box>
+
+        <Button type="submit" style={{ margin: 'auto', fontSize: '20px' }} onClick={() => handler('/profile')}>
+           登録
+        </Button>
       </Stack>
     </div>
   )
