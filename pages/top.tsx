@@ -68,6 +68,7 @@ const Notification: NextPage = () => {
     friend_list: [],
     icon: ''
   })
+  const [Img, setImg] = useState<any>();
   const [open, setOpen] = useState(false)
   // const handleOpen = (friend: OthersNotification) => {
   //   setOpen(true)
@@ -231,7 +232,6 @@ const Notification: NextPage = () => {
           open={open}
           handleClose={handleClose}
           name={modalData.user_name}
-          icon={modalData.icon}
           background={BackgroundImage.src}
           userid={modalData.user_id}
           friendNumber={modalData.friend_list.length}

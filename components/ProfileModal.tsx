@@ -1,6 +1,11 @@
 import { NextPage } from 'next'
 import { Modal, Stack, Button, Typography, Box, Chip } from '@mui/material'
 import Router from 'next/router'
+import Icon1 from '../public/abe.png'
+import Icon2 from '../public/suekane.png'
+import Icon3 from '../public/noguchi.png'
+import Icon4 from '../public/walle.png'
+import Icon5 from '../public/SampleImage.jpg'
 
 interface Props {
   open: any
@@ -70,7 +75,11 @@ const ProfileModal: NextPage<Props> = ({
           }}
         >
           <img src={`${background}`} style={{ width: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10, height: 120 }} />
-          <img alt="Icon" src={icon} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }} />
+          {(name.length % 5 == 1) &&<img src={Icon1.src} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }} />}
+            {(name.length % 5 == 0) &&<img src={Icon2.src} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }}/>}
+            {(name.length % 5 == 2) && <img src={Icon3.src} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }}/>}
+            {(name.length % 5 == 3) && <img src={Icon4.src} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }} />}
+          {/* <img alt="Icon" src={icon} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }} /> */}
           <Typography style={{ fontSize: 16, marginTop: 60 }}>{name}</Typography>
           <Typography style={{ color: '#808080', fontSize: 14 }}>
             <span>@</span>
