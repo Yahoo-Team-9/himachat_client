@@ -71,11 +71,11 @@ const Notification: NextPage = () => {
   const { data: session } = useSession()
 
 
-  const setupSocket = async (user_id: string, friend_ids: number[]) => {
-    socket = io(SERVER_URL).connect()
-    socket.emit('join', user_id, friend_ids)
-    socket.on('update_hima_status', handle_hima_status) //友達の誰かが、暇状態を更新したため、main画面を更新
-  }
+  // const setupSocket = async (user_id: string, friend_ids: number[]) => {
+  //   socket = io(SERVER_URL).connect()
+  //   socket.emit('join', user_id, friend_ids)
+  //   socket.on('update_hima_status', handle_hima_status) //友達の誰かが、暇状態を更新したため、main画面を更新
+  // }
 
   const handle_hima_status = () => {
     if (session) {
@@ -145,9 +145,9 @@ const Notification: NextPage = () => {
 
       const friend_ids: number[] = friends.map((obj) => obj.friend_id)
       if (friend_ids.length != 0) {
-        setupSocket(myProfile['user_profiles'][0][1], friend_ids)
-        // 友達に自分がログインしたことを通知
-        socket.emit('update_hima_status', friend_ids)
+        // setupSocket(myProfile['user_profiles'][0][1], friend_ids)
+        // // 友達に自分がログインしたことを通知
+        // socket.emit('update_hima_status', friend_ids)
       }
     }
   }, [friends])
