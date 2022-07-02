@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { Modal, Stack, Button, Typography, Box } from '@mui/material'
+import { Modal, Stack, Button, Typography, Box, Chip } from '@mui/material'
 import Router from 'next/router'
 
 interface Props {
@@ -74,7 +74,7 @@ const ProfileModal: NextPage<Props> = ({
           <Typography style={{ fontSize: 16, marginTop: 60 }}>{name}</Typography>
           <Typography style={{ color: '#808080', fontSize: 14 }}>{userid} </Typography>
           <Typography style={{ color: '#808080', fontSize: 14 }}>{bio} </Typography>
-          <Typography style={{ color: '#808080', fontSize: 14 }}>{tag_list} </Typography>
+          <Chip label={tag_list} style={{ color: '#808080', fontSize: 14 }} />
           {/* {tag_list.map((tag: string) => (
                         <Typography style={{ color: "#808080", fontSize: 14 }}>{tag}  </Typography>
                     ))} */}
