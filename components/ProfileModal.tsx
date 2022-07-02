@@ -72,7 +72,10 @@ const ProfileModal: NextPage<Props> = ({
           <img src={`${background}`} style={{ width: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10, height: 120 }} />
           <img alt="Icon" src={icon} style={{ width: 120, height: 120, borderRadius: 90, top: 60, position: 'absolute' }} />
           <Typography style={{ fontSize: 16, marginTop: 60 }}>{name}</Typography>
-          <Typography style={{ color: '#808080', fontSize: 14 }}>{userid} </Typography>
+          <Typography style={{ color: '#808080', fontSize: 14 }}>
+            <span>@</span>
+            {userid}{' '}
+          </Typography>
           <Typography style={{ color: '#808080', fontSize: 14 }}>{bio} </Typography>
           <Chip label={tag_list} style={{ color: '#808080', fontSize: 14 }} />
           {/* {tag_list.map((tag: string) => (
