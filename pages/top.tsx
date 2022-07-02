@@ -43,7 +43,6 @@ type OthersNotification = {
   bio: string
   tag_list: string[]
   friend_list: number[]
-  icon: string
   // background: string
 }
 const AZURE_URL = 'https://himathing.azurewebsites.net/'
@@ -65,8 +64,7 @@ const Notification: NextPage = () => {
     user_name: 'test',
     bio: 'aaa',
     tag_list: [],
-    friend_list: [],
-    icon: ''
+    friend_list: []
   })
   const [Img, setImg] = useState<any>();
   const [open, setOpen] = useState(false)
