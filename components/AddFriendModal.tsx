@@ -35,7 +35,7 @@ const AddFriendModal: NextPage<Props> = ({ open, handleClose, background, icon, 
       select: true,
     }
   ]
-    const [users, setUser] = useState<UserList[]>([
+    let [users, setUser] = useState<UserList[]>([
       
     ])
   const [txt, setText] = useState('')
