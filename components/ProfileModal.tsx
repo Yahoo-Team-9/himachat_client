@@ -11,7 +11,6 @@ interface Props {
   open: any
   handleClose: any
   background: string
-  icon: string
   name: string
   userid: string
   friendNumber: number
@@ -35,7 +34,6 @@ const ProfileModal: NextPage<Props> = ({
   open,
   handleClose,
   background,
-  icon,
   name,
   userid,
   friendNumber,
